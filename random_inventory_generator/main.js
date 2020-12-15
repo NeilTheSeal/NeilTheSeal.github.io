@@ -221,7 +221,7 @@ generate_button.addEventListener("click", function() {
       const item_number = i + 1;
       const img_elt = document.getElementById(`item-${item_number}`);
       img_elt.setAttribute("src", item.img_url);
-      img_elt.setAttribute("tooltip-text", `${item.name} <br> G.E. value: ${item.ge_value} <br> H.A. value: ${item.ha_value}`);
+      img_elt.setAttribute("tooltip-text", `<b>${item.name}</b> <br> <div style=\"margin-top:5px;margin-bottom:0px;\">G.E. value: ${item.ge_value} <br> H.A. value: ${item.ha_value}</div> <div style=\"margin-top:5px;\">Click to view on Wiki</div>`);
 
       const parent = img_elt.parentElement;
       parent.setAttribute("href", `${item.url}`);
