@@ -12,9 +12,11 @@
 }
 
 #app {
-  width: 1200px;
-  height: 480px;
-  transform: translateY(20px);
+  position: absolute;
+  width: calc(90vw - 30px);
+  height: 500px;
+  top: 30px;
+  left: 20px;
 }
 
 #inv_bg {
