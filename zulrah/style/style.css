@@ -1,0 +1,26 @@
+body {
+    background: linear-gradient(90deg, #FDBB2D 0%, #3A1C71 50%);
+    height:100%;
+    --navbarHeight: 108px;
+    --marginsY: 10px;
+    --appHeight: calc(100vh - var(--navbarHeight) - 3*var(--marginsY));
+}
+
+.navlogo {
+    width: 100%;
+    max-width: 100px;
+}
+
+.bgbox {
+    background: #343a4078;
+    border: solid 2px rgba(255,255,255,.2);
+    border-radius: 8px;
+    color: rgba(230,230,230,.95);
+    width: 90%;
+    padding: 15px;
+    margin: 5%;
+}
+
+#fred:hover {
+    filter: drop-shadow(0px 0px 3px white);
+}
