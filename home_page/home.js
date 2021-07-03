@@ -25,7 +25,7 @@ function windowResized() {
 }
 
 function snowFlake() {
-  this.radiusRange = [0.5, 10];
+  this.radiusRange = [0.25, 15];
   this.speedLimits = [0.01, 1];
   this.color = color(255, 255, 255);
   this.radius = random(this.radiusRange[0], this.radiusRange[1]);
