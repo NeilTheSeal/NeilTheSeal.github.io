@@ -38,7 +38,7 @@ for ( let i = 0; i < videoContainers.length; i++ ) {
   container.appendChild(videoContainer);
 
   const video = document.createElement("video")
-  video.src = "./media/zulrah.mp4";
+  video.src = "./media/Zulrah.mp4";
   video.setAttribute("type", "video/mp4");
   video.setAttribute("controls", "true");
   videoContainer.appendChild(video);
