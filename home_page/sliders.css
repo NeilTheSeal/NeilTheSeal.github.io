@@ -1,0 +1,37 @@
+/* The slider itself */
+input[type="range"] {
+  -webkit-appearance: none;
+  width: calc(100% - 10px);
+  height: 2px;
+  border-radius: 3px;  
+  background: rgb(164, 255, 165);
+  outline: none;
+  opacity: 1;
+  /* margin-bottom: 0.5rem; */
+  transform: translateY(2px);
+  margin: 6px;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+  box-shadow: 0px 0px 1px 1px white;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%; 
+  border: 1px solid black;
+  background: #ecc8fa;
+  cursor: pointer;
+
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background :#ecc8fa;
+  border: 1px solid black;
+  cursor: pointer;
+}
