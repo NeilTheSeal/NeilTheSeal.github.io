@@ -1,13 +1,12 @@
-const g = {
+let g = {
   cnv : null,
   zoomSlider : document.getElementById("zoom-slider"),
-  // zoomLabel : document.getElementById("zoom-value"),
   panXSlider : document.getElementById("pan-x"),
-  // panXLabel : document.getElementById("pan-x-value"),
   panYSlider : document.getElementById("pan-y"),
-  // panYLabel : document.getElementById("pan-y-value"),
+  resetButton : document.getElementById("reset-button"),
   graphicsArea : document.getElementById("graphics-area"),
   zoom : 0,
+  defaultZoom: 0,
   X : -0.5,
   Y : 0,
   maxRange : [[-2.5, 1.5], [-2, 2]],
@@ -15,7 +14,7 @@ const g = {
   FOV : 2,
   FOVMin : 1e-9,
   FOVMax : 4,
-  max_iterations : 100,
+  max_iterations : 40,
   pixel_array : [],
   is_panning : false,
 };
@@ -29,12 +28,14 @@ function setup() {
   }
   const FOVMaxLog = Math.log(g.FOVMax);
   const FOVMinLog = Math.log(g.FOVMin);
-  const defaultZoom = Math.log(g.FOV);
-  const sliderValue = map(defaultZoom, FOVMinLog, FOVMaxLog, 1, 0);
+  g.defaultZoom = Math.log(g.FOV);
+  const sliderValue = map(g.defaultZoom, FOVMinLog, FOVMaxLog, 1, 0);
   g.zoom = Math.log(g.FOV);
   g.zoomSlider.value = `${sliderValue}`;
   background(255);
   pixelDensity(1);
+  adjustZoom();
+  pan();
   noLoop();
 }
 
@@ -64,6 +65,11 @@ function adjustZoom() {
   const newZoom = g.zoom - dZoom;
   const FOVMaxLog = Math.log(g.FOVMax);
   const FOVMinLog = Math.log(g.FOVMin);
+  const maxIterationFar = 50;
+  const maxIterationZoomed = 400;
+  let newIterations = map(newZoom, FOVMaxLog, FOVMinLog, maxIterationFar, maxIterationZoomed);
+  newIterations = Math.ceil(newIterations);
+  g.max_iterations = newIterations;
   if( newZoom < FOVMaxLog && newZoom > FOVMinLog ) {
     g.zoom -= dZoom;
     g.FOV = Math.exp(g.zoom);
@@ -75,6 +81,7 @@ function adjustZoom() {
   }
 
   redraw();
+  updateLabels()
   if(g.is_panning) {
     window.setTimeout(adjustZoom, 100);
   }
@@ -103,9 +110,20 @@ function pan() {
     ];
   }
   redraw();
+  updateLabels()
   if(g.is_panning) {
     window.setTimeout(pan, 100);
   }
+}
+
+function updateLabels() {
+  const dspan = document.getElementById("d-span");
+  const panX = document.getElementById("pan-x-value");
+  const panY = document.getElementById("pan-y-value");
+  const width = (g.range[0][1] - g.range[0][0]).toPrecision(2);
+  dspan.innerHTML = width;
+  panX.innerHTML = `Re = ${g.X.toFixed(2)}`;
+  panY.innerHTML = `Im = ${(-1 * g.Y).toFixed(2)}`;
 }
 
 g.zoomSlider.addEventListener("mousedown", function() {g.is_panning = true; adjustZoom() });
@@ -119,7 +137,18 @@ g.panYSlider.addEventListener("mousedown", function() {g.is_panning = true; pan(
   })
 })
 
-let example = true;
+g.resetButton.addEventListener("click", function() {
+  g.X = -0.5;
+  g.Y = 0;
+  g.range = [[-1.5, 0.5], [-1, 1]];
+  g.FOV = 2;
+  g.zoom = g.defaultZoom;
+  g.is_panning = false;
+  pan();
+  adjustZoom();
+  calculate();
+  redraw();
+})
 
 function calculate() {
   for ( let i = 0; i < width; i++ ) {
@@ -142,7 +171,7 @@ function calculate() {
         if( n <= 0 ) {break}
       }
 
-      const color = Math.pow(n / g.max_iterations, 0.75) * 255;
+      const color = Math.floor(n / g.max_iterations * 255);
       g.pixel_array[i][j] = [color, 127 + color / 2, 200 + 55 * (color / 255)];
       
     }

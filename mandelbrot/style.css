@@ -1,3 +1,7 @@
+body {
+  min-width: 1080px;
+}
+
 .main-header {
   width: max-content;
   margin: auto;
@@ -33,6 +37,7 @@
   display: grid;
   grid-template-columns: max-content max-content;
   margin: 20px auto;
+  position: relative;
 }
 
 #controls-area {
@@ -62,7 +67,7 @@ h4 {
 
 .slider-div {
   display: grid;
-  grid-template-columns: 120px 150px 5ch;
+  grid-template-columns: 120px 150px 10ch;
   align-items: center;
   align-content: center;
   margin: 5px 10px;
@@ -106,4 +111,48 @@ canvas {
 .zoom-label.left {
   margin-left: 1rem;
   margin-right: 0.25rem;
+}
+
+.reset-wrapper {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  margin-top: 0.5rem;
+}
+
+.reset-wrapper>.btn {
+  width: 6rem;
+  /* border: 1px solid black; */
+  border-radius: 8px;
+  box-shadow: 0px 0px 1px 1px white;
+}
+
+#x-axis-label-div {
+  position: absolute;
+  height: 6px;
+  width: 600px;
+  top: 610px;
+  text-align: center;
+  border: 1px solid black;
+  border-top: none;
+}
+
+#y-axis-label-div {
+  position: absolute;
+  width: 600px;
+  height: 6px;
+  transform: rotate(270deg);
+  top: calc(50% - 6px);
+  left: -310px;
+  text-align: center;
+  border: 1px solid black;
+  border-bottom: none;
+}
+
+#x-axis-label-div>.label {
+  transform: translateY(2ch);
+}
+
+#y-axis-label-div>.label {
+  transform: translateY(-3.5ch);
 }
