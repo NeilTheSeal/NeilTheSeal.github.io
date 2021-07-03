@@ -130,11 +130,11 @@ g.zoomSlider.addEventListener("mousedown", function() {g.is_panning = true; adju
 g.panXSlider.addEventListener("mousedown", function() {g.is_panning = true; pan() });
 g.panYSlider.addEventListener("mousedown", function() {g.is_panning = true; pan() });
 
-[g.panXSlider, g.panYSlider, g.zoomSlider].forEach(slider => {
-  slider.addEventListener("mouseup", function() {
-    slider.value = "0";
+document.body.addEventListener("mouseup", function() {
+    g.zoomSlider.value = "0";
+    g.panXSlider.value = "0";
+    g.panYSlider.value = "0";
     g.is_panning = false;
-  })
 })
 
 g.resetButton.addEventListener("click", function() {
