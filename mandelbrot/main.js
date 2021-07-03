@@ -130,12 +130,32 @@ g.zoomSlider.addEventListener("mousedown", function() {g.is_panning = true; adju
 g.panXSlider.addEventListener("mousedown", function() {g.is_panning = true; pan() });
 g.panYSlider.addEventListener("mousedown", function() {g.is_panning = true; pan() });
 
-document.body.addEventListener("mouseup", function() {
+// These 3 functions are all necessary because FIREFOX IS TRASH AND DOESN'T REGISTER MOUSEUP EVENTLISTENERS
+
+function mouseMoved() {
+  if(!mouseIsPressed) {
     g.zoomSlider.value = "0";
     g.panXSlider.value = "0";
     g.panYSlider.value = "0";
     g.is_panning = false;
-})
+  }
+};
+
+function mouseReleased() {
+  g.zoomSlider.value = "0";
+  g.panXSlider.value = "0";
+  g.panYSlider.value = "0";
+  g.is_panning = false;
+};
+
+window.setInterval(() => {
+  if(!mouseIsPressed) {
+    g.zoomSlider.value = "0";
+    g.panXSlider.value = "0";
+    g.panYSlider.value = "0";
+    g.is_panning = false;
+  }
+}, 200);
 
 g.resetButton.addEventListener("click", function() {
   g.X = -0.5;
