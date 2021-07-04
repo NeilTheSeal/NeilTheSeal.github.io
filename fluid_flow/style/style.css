@@ -1,0 +1,65 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/resources/fonts/open-sans-v20-latin-regular.eot');
+  src: local(''),
+    url('/resources/fonts/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('/resources/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
+    url('/resources/fonts/open-sans-v20-latin-regular.woff') format('woff'),
+    url('/resources/fonts/open-sans-v20-latin-regular.ttf') format('truetype'),
+    url('/resources/fonts/open-sans-v20-latin-regular.svg#OpenSans') format('svg');
+}
+
+body {
+  font-family: "Open Sans", sans-serif;
+  background-color: darkslategrey;
+}
+
+#top-nav {
+  width: 100vw;
+  height: 60px;
+  background-color: rgb(144, 144, 144);
+  padding: 10px;
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 10px;
+  align-content: center;
+  align-items: center;
+  border: 1px solid black;
+}
+
+#top-nav>a {
+  padding: 8px 12px;
+  background-color: rgb(215, 215, 215);
+  border-radius: 3px;
+  border: 1px solid darkslategray;
+  text-decoration: none;
+  color: rgb(0, 85, 169);
+  cursor: pointer;
+}
+
+#top-nav>a:hover {
+  background-color: rgb(181, 181, 181);
+}
+
+#page-title {
+  font-size: 2rem;
+  text-align: center;
+  color: cyan;
+  font-weight: 600;
+  pointer-events: none;
+  position: absolute;
+  left: max(400px, 50vw);
+  top: 5px;
+  transform: translateX(-50%);
+  white-space: nowrap;
+}
+
+main {
+
+}
+
+#main-canvas {
+  margin: 20px;
+}
