@@ -58,7 +58,7 @@ function adjustZoom() {
   const FOVMaxLog = Math.log(window.g.FOVMax);
   const FOVMinLog = Math.log(window.g.FOVMin);
   const maxIterationFar = 40;
-  const maxIterationZoomed = 300;
+  const maxIterationZoomed = 350;
   let newIterations = map(newZoom, FOVMaxLog, FOVMinLog, maxIterationFar, maxIterationZoomed);
   // newIterations = map(Math.pow(newIterations, 0.75), Math.pow(maxIterationFar, 0.75), Math.pow(maxIterationZoomed, 0.75), maxIterationFar, maxIterationZoomed);
   newIterations = Math.ceil(newIterations);
