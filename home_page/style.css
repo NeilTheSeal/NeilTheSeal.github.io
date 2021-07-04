@@ -29,6 +29,10 @@ body {
   letter-spacing: 0.125rem;
   pointer-events: none;
   color:rgb(156, 255, 224);
+  width: max-content;
+  padding-left: 20px;
+  padding-right: 20px;
+  background-color: black;
 }
 
 a {
