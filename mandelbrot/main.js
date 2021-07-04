@@ -175,10 +175,10 @@ window.g.demoButton.addEventListener("click", function() {
     let i = 0;
     const demoFunction = function() {
       if( window.g.FOV > window.g.FOVMin && window.g.in_demo_mode ) {
-        window.g.X += (window.g.demo_x - window.g.X) / 10;
-        window.g.Y += (window.g.demo_y - window.g.Y) / 10;
+        window.g.X += (window.g.demo_x_2 - window.g.X) / 10;
+        window.g.Y += (window.g.demo_y_2 - window.g.Y) / 10;
         [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "0.25"; slider.style.pointerEvents = "none" } )
-        window.g.zoomSlider.value = "0.45";
+        window.g.zoomSlider.value = "0.5";
         adjustZoom();
         i++;
         setTimeout(demoFunction, 1000 / 30);
@@ -199,10 +199,10 @@ window.g.demoButton2.addEventListener("click", function() {
     let i = 0;
     const demoFunction = function() {
       if( window.g.FOV > window.g.FOVMin && window.g.in_demo_mode ) {
-        window.g.X += (window.g.demo_x_2 - window.g.X) / 10;
-        window.g.Y += (window.g.demo_y_2 - window.g.Y) / 10;
+        window.g.X += (window.g.demo_x - window.g.X) / 10;
+        window.g.Y += (window.g.demo_y - window.g.Y) / 10;
         [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "0.25"; slider.style.pointerEvents = "none" } )
-        window.g.zoomSlider.value = "0.5";
+        window.g.zoomSlider.value = "0.45";
         adjustZoom();
         i++;
         setTimeout(demoFunction, 1000 / 30);
