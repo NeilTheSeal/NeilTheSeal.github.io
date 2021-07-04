@@ -32,6 +32,12 @@ body {
   z-index: -1;
 }
 
+.author {
+  margin: auto;
+  width: 100vw;
+  text-align: center;
+}
+
 .main {
   width: max-content;
   display: grid;
@@ -67,7 +73,7 @@ h4 {
 
 .slider-div {
   display: grid;
-  grid-template-columns: 120px 150px 10ch;
+  grid-template-columns: 120px 140px 4ch;
   align-items: center;
   align-content: center;
   margin: 5px 10px;
@@ -75,6 +81,10 @@ h4 {
   background-color: rgba(0, 0, 0, 0.25);
   border-radius: 3px;
   border: 1px solid grey;
+}
+
+#pan-y {
+  transform: rotate(90deg);
 }
 
 .slider-label, .slider-value {
@@ -89,14 +99,43 @@ h4 {
 #graphics-area {
   width: min-content;
   margin: auto;
+  z-index: 0;
 }
 
 canvas {
   box-shadow: 0px 0px 2px 1px lightslategrey;
+  position: relative;
+  z-index: 0;
 }
 
-#pan-y {
-  transform: rotate(90deg);
+#graphics-area::before {
+  content: "";
+  height: 0px;
+  width: 20px;
+  border: 1px solid black;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+  z-index: 1;
+  transform: translateX(-49%);
+}
+
+#graphics-area::after {
+  content: "";
+  height: 20px;
+  width: 0px;
+  border: 1px solid black;
+  border-left: none;
+  border-top: none;
+  border-bottom: none;
+  position: absolute;
+  left: 300px;
+  top: 300px;
+  z-index: 1;
+  transform: translateY(-50%);
 }
 
 .vertical {
@@ -113,18 +152,48 @@ canvas {
   margin-right: 0.25rem;
 }
 
-.reset-wrapper {
+.buttons-wrapper {
   display: grid;
-  justify-content: center;
+  justify-content: space-evenly;
   justify-items: center;
+  align-items: center;
+  align-content: center;
   margin-top: 0.5rem;
+  grid-template-columns: max-content max-content;
+  margin-bottom: 1rem;
 }
 
-.reset-wrapper>.btn {
-  width: 6rem;
+.buttons-wrapper>.btn {
+  width: 7.5rem !important;
   /* border: 1px solid black; */
   border-radius: 8px;
   box-shadow: 0px 0px 1px 1px white;
+  height: min-content;
+}
+
+#demo-button, #demo-button-2, #about-button {
+  width: max-content;
+}
+
+#reset-button {
+  background-color: rgb(255, 126, 79);
+  transition: background-color 0.25s;
+}
+
+#reset-button:hover {
+  background-color: rgb(235, 106, 59);;
+}
+
+#demo-button, #demo-button-2 {
+  display: grid;
+  grid-template-columns: max-content max-content;
+}
+
+.play-icon {
+  width: 20px;
+  height: 20px;
+  margin-right: 3px;
+  transform: rotate(90deg) translateX(3px);
 }
 
 #x-axis-label-div {
@@ -155,4 +224,9 @@ canvas {
 
 #y-axis-label-div>.label {
   transform: translateY(-3.5ch);
+}
+
+#wiki-iframe {
+  width: 100%;
+  height: 2000px;
 }

@@ -4,6 +4,8 @@ window.g = {
   panXSlider : document.getElementById("pan-x"),
   panYSlider : document.getElementById("pan-y"),
   resetButton : document.getElementById("reset-button"),
+  demoButton : document.getElementById("demo-button"),
+  demoButton2 : document.getElementById("demo-button-2"),
   graphicsArea : document.getElementById("graphics-area"),
   zoom : 0,
   defaultZoom: 0,
@@ -17,6 +19,11 @@ window.g = {
   max_iterations : 40,
   pixel_index : 0,
   is_panning : false,
+  demo_x : -1.184993869372935,
+  demo_y : -0.24737225061637308,
+  demo_x_2 : -0.7476360108797688,
+  demo_y_2 : -0.18476093770127774,
+  in_demo_mode : false
 };
 
 function setup() {
@@ -53,6 +60,7 @@ function adjustZoom() {
   const maxIterationFar = 40;
   const maxIterationZoomed = 300;
   let newIterations = map(newZoom, FOVMaxLog, FOVMinLog, maxIterationFar, maxIterationZoomed);
+  // newIterations = map(Math.pow(newIterations, 0.75), Math.pow(maxIterationFar, 0.75), Math.pow(maxIterationZoomed, 0.75), maxIterationFar, maxIterationZoomed);
   newIterations = Math.ceil(newIterations);
   window.g.max_iterations = newIterations;
   if( newZoom < FOVMaxLog && newZoom > FOVMinLog ) {
@@ -105,44 +113,110 @@ function updateLabels() {
   const dspan = document.getElementById("d-span");
   const panX = document.getElementById("pan-x-value");
   const panY = document.getElementById("pan-y-value");
-  const width = (window.g.range[0][1] - window.g.range[0][0]).toPrecision(2);
+  const width = (window.g.range[0][1] - window.g.range[0][0]).toPrecision(3);
   dspan.innerHTML = width;
-  panX.innerHTML = `Re = ${window.g.X.toFixed(2)}`;
-  panY.innerHTML = `Im = ${(-1 * window.g.Y).toFixed(2)}`;
+  panX.innerHTML = `${window.g.X.toFixed(3)}`;
+  panY.innerHTML = `${(-1 * window.g.Y).toFixed(3)}`;
 }
 
 window.g.zoomSlider.addEventListener("mousedown", function() {window.g.is_panning = true; adjustZoom() });
 window.g.panXSlider.addEventListener("mousedown", function() {window.g.is_panning = true; pan() });
 window.g.panYSlider.addEventListener("mousedown", function() {window.g.is_panning = true; pan() });
 
-// These 3 functions are all necessary because FIREFOX IS TRASH AND DOESN'T REGISTER MOUSEUP EVENTLISTENERS
+// These 2 functions are all necessary because FIREFOX IS TRASH AND DOESN'T REGISTER MOUSEUP EVENTLISTENERS
 
 function mouseMoved() {
-  if(!mouseIsPressed) {
-    window.g.zoomSlider.value = "0";
-    window.g.panXSlider.value = "0";
-    window.g.panYSlider.value = "0";
-    window.g.is_panning = false;
+  if(!window.g.in_demo_mode) {
+    try{
+      if(!mouseIsPressed) {
+        window.g.zoomSlider.value = "0";
+        window.g.panXSlider.value = "0";
+        window.g.panYSlider.value = "0";
+        window.g.is_panning = false;
+      }
+    } catch(e) {}
   }
 };
 
 function mouseReleased() {
-  window.g.zoomSlider.value = "0";
-  window.g.panXSlider.value = "0";
-  window.g.panYSlider.value = "0";
-  window.g.is_panning = false;
+  if(!window.g.in_demo_mode) {
+    try{
+      if(!mouseIsPressed) {
+        window.g.zoomSlider.value = "0";
+        window.g.panXSlider.value = "0";
+        window.g.panYSlider.value = "0";
+        window.g.is_panning = false;
+      }
+    } catch(e) {}
+  }
 };
 
 window.setInterval(() => {
-  if(!mouseIsPressed) {
-    window.g.zoomSlider.value = "0";
-    window.g.panXSlider.value = "0";
-    window.g.panYSlider.value = "0";
-    window.g.is_panning = false;
+  if(!window.g.in_demo_mode) {
+    try{
+      if(!mouseIsPressed) {
+        window.g.zoomSlider.value = "0";
+        window.g.panXSlider.value = "0";
+        window.g.panYSlider.value = "0";
+        window.g.is_panning = false;
+      }
+    } catch(e) {}
   }
 }, 200);
 
-window.g.resetButton.addEventListener("click", function() {
+window.g.resetButton.addEventListener("click", reset);
+
+window.g.demoButton.addEventListener("click", function() {
+  if ( !window.g.in_demo_mode ) {
+    reset();
+    window.g.range[0] = [window.g.X - window.g.FOV, window.g.X + window.g.FOV];
+    window.g.range[1] = [window.g.Y - window.g.FOV, window.g.Y + window.g.FOV];
+    window.g.in_demo_mode = true;
+    let i = 0;
+    const demoFunction = function() {
+      if( window.g.FOV > window.g.FOVMin && window.g.in_demo_mode ) {
+        window.g.X += (window.g.demo_x - window.g.X) / 10;
+        window.g.Y += (window.g.demo_y - window.g.Y) / 10;
+        [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "0.25"; slider.style.pointerEvents = "none" } )
+        window.g.zoomSlider.value = "0.45";
+        adjustZoom();
+        i++;
+        setTimeout(demoFunction, 1000 / 30);
+      } else {
+        [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "1"; slider.style.pointerEvents = "auto" } )
+      }
+    };
+    setTimeout(demoFunction, 0);
+  }
+});
+
+window.g.demoButton2.addEventListener("click", function() {
+  if ( !window.g.in_demo_mode ) {
+    reset();
+    window.g.range[0] = [window.g.X - window.g.FOV, window.g.X + window.g.FOV];
+    window.g.range[1] = [window.g.Y - window.g.FOV, window.g.Y + window.g.FOV];
+    window.g.in_demo_mode = true;
+    let i = 0;
+    const demoFunction = function() {
+      if( window.g.FOV > window.g.FOVMin && window.g.in_demo_mode ) {
+        window.g.X += (window.g.demo_x_2 - window.g.X) / 10;
+        window.g.Y += (window.g.demo_y_2 - window.g.Y) / 10;
+        [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "0.25"; slider.style.pointerEvents = "none" } )
+        window.g.zoomSlider.value = "0.5";
+        adjustZoom();
+        i++;
+        setTimeout(demoFunction, 1000 / 30);
+      } else {
+        [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "1"; slider.style.pointerEvents = "auto" } )
+      }
+    };
+    setTimeout(demoFunction, 0);
+  }
+});
+
+function reset() {
+  [window.g.zoomSlider, window.g.panXSlider, window.g.panYSlider].forEach(slider => { slider.style.opacity = "1"; slider.style.pointerEvents = "auto" } )
+  window.g.in_demo_mode = false;
   window.g.X = -0.5;
   window.g.Y = 0;
   window.g.range = [[-1.5, 0.5], [-1, 1]];
@@ -153,7 +227,7 @@ window.g.resetButton.addEventListener("click", function() {
   adjustZoom();
   update();
   redraw();
-})
+}
 
 function update() {
   for ( let j = 0; j < width; j++ ) {
@@ -176,7 +250,8 @@ function update() {
         if( n <= 0 ) {break}
       }
 
-      const color = n / g.max_iterations * 255;
+      let color = n / g.max_iterations * 255;
+      if(color > 240 ) { color = 255 }
       pixels[ window.g.pixel_index ]    = color | 0;
       pixels[ window.g.pixel_index + 1] = ( 127 + color / 2 ) | 0;
       pixels[ window.g.pixel_index + 2] = ( 200 + 55 * (color / 255)) | 0;

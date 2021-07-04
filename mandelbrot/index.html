@@ -8,12 +8,17 @@
   <link href="bootstrap.min.css" rel="stylesheet" />
   <link href="style.css" rel="stylesheet" />
   <link href="sliders.css" rel="stylesheet" />
+  <script src="bootstrap.bundle.min.js"></script>
   <script src="p5.min.js"></script>
   <script src="math.js"></script>
 </head>
 <body>
   <div class="main-header">
     Mandelbrot explorer
+  </div>
+
+  <div class="author">
+    By Neil the Seal
   </div>
 
   <div class="main">
@@ -36,27 +41,48 @@
       <div class="slider-div">
         <div class="slider-label">Pan left/right:</div>
         <input id="pan-x" type="range" value="0" min="-1" max="1" step="0.001" />
-        <div class="slider-value" id="pan-x-value">Re = 0.0</div>
       </div>
   
       <div class="slider-div vertical">
         <div class="slider-label">Pan up/down:</div>
         <input id="pan-y" type="range" value="0" min="-1" max="1" step="0.001" />
-        <div class="slider-value" id="pan-y-value">Im = 0.0</div>
       </div>
 
-      <div class="reset-wrapper">
-        <button id="reset-button" class="btn btn-success">Reset</button>
+      <div class="buttons-wrapper">
+        <button id="reset-button" class="btn btn-danger">Reset</button>
+        <button id="about-button" type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#about-modal">About</button>
+      </div>
+
+      <div class="buttons-wrapper">
+        <button id="demo-button" class="btn btn-primary"><div class="play-icon">&#9650;</div> demo #1</button>
+        <button id="demo-button-2" class="btn btn-primary"><div class="play-icon">&#9650;</div> demo #2</button>
       </div>
       
     </div>
 
     <div id="x-axis-label-div">
-      <div class="label">Real component<br>(width of image : <span id="d-span">2.00</span>)</div>
+      <div class="label">Real component (Re)<br>range of image: <span id="d-span">2.00</span><br>crosshair: <span id="pan-x-value">-0.500</span> + <span id="pan-y-value">0.000</span>i</div>
     </div>
 
     <div id="y-axis-label-div">
-      <div class="label">Imaginary component</div>
+      <div class="label">Imaginary component (Im)</div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="about-modal" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+      <div class="modal-content">
+        
+        <div class="modal-header">
+          <h5 class="modal-title">About</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        
+        <div class="modal-body">
+          <iframe id="wiki-iframe" src="https://en.wikipedia.org/wiki/Mandelbrot_set"></iframe>
+        </div>
+
+      </div>
     </div>
   </div>
 
