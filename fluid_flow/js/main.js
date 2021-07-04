@@ -1,31 +1,27 @@
 let fluid, cnv;
 
 function setup() {
-  cnv = createCanvas(500, 500);
+  let size = 300;
+  cnv = createCanvas(size, size);
   cnv.id("main-canvas");
-  fluid = new Fluid(0.2, 0, 0.0000001);
+  pixelDensity(1);
+  fluid = new Fluid({
+    size: size,
+    dt: 10,
+    diffusion: 1,
+    viscosity: 0.0001
+  });
+  frameRate(60);
+  cnv.mouseClicked(() => {
+    const s = fluid.size;
+    const x = (mouseX / width) * s | 0;
+    const y = (mouseY / height) * s | 0;
+    fluid.addDensity(x, y, 255);
+  })
 }
 
 function draw() {
-  stroke(51);
-  strokeWeight(2);
-
-  let cx = int((0.5 * width) / SCALE);
-  let cy = int((0.5 * height) / SCALE);
-  for (let i = -1; i <= 1; i++) {
-    for (let j = -1; j <= 1; j++) {
-      fluid.addDensity(cx + i, cy + j, random(50, 150));
-    }
-  }
-
-  for (let i = 0; i < 2; i++) {
-    let angle = noise(t) * TWO_PI * 2;
-    let v = p5.Vector.fromAngle(angle);
-    v.mult(0.2);
-    t += 0.01;
-    fluid.addVelocity(cx, cy, v.x, v.y);
-  }
-
+  background(127);
+  fluid.renderDensity();
   fluid.step();
-  fluid.renderD();
 }
