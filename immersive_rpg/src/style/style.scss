@@ -1,0 +1,41 @@
+@import "./variables.scss";
+@import "~bootstrap/scss/bootstrap";
+@import "./sliders.scss";
+
+body {
+  margin: 0.5rem;
+  display: grid;
+  grid-template-columns: minmax(500px, 800px);
+  justify-content: center;
+  justify-items: center;
+}
+
+#top-nav {
+  width: 100%;
+  max-width: 600px;
+  display: grid;
+  grid-template-columns: min-content min-content;
+  justify-content: space-evenly;
+
+  & .btn {
+    width: 12ch;
+  }
+}
+
+#instructions {
+  text-align: left;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+main {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  justify-content: center;
+  justify-items: center;
+}
+
+#main-canvas {
+  box-shadow: 0px 0px 2px 2px rgba(0, 0, 0, 0.25);
+}

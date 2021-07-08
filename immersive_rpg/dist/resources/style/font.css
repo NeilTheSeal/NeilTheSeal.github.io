@@ -1,0 +1,22 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/resources/style/fonts/open-sans-v20-latin-regular.eot');
+  src: local(''),
+    url('/resources/style/fonts/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('/resources/style/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
+    url('/resources/style/fonts/open-sans-v20-latin-regular.woff') format('woff'),
+    url('/resources/style/fonts/open-sans-v20-latin-regular.ttf') format('truetype'),
+    url('/resources/style/fonts/open-sans-v20-latin-regular.svg#OpenSans') format('svg');
+}
+
+:root {
+  font-family: "Open Sans", sans-serif, "Arial";
+  color: black;
+  font-size: 15px;
+}
+
+body {
+  font-family: "Open Sans", sans-serif, "Arial";
+}
