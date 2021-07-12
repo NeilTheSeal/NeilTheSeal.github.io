@@ -19,22 +19,25 @@ window.g = {
     textures: {},
   },
   player : {
-    coord : {
-      x : -100,
+    coords : {
+      x : 0,
       y : 0,
       z : 0,
-      theta : 1.5,
-      isJumping : false,
-      velocity : {
-        x : 0,
-        y : 0,
-        z : 0,
-      }
+      player_theta : Math.PI / 2,
+      ground : 0,
+    },
+    isJumping : false,
+    velocity : {
+      x : 0,
+      y : 0,
+      z : 0,
+      max_velocity : 5,
+      max_rotation_speed : 0.1,
     },
     camera : {
-      x : -300,
-      y : -350,
-      z : -500,
+      x : 0,
+      y : 0,
+      z : 0,
       centerX : 0,
       centerY : 0,
       centerZ : 0,
@@ -42,6 +45,7 @@ window.g = {
       upY : 0,
       upZ : 0,
       camera : null,
+      camera_theta : Math.PI / 2,
     }
   },
 }

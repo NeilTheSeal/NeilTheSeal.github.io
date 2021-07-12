@@ -1,40 +1,42 @@
-// window.p5 = new require("./p5.js");
-
-const preload = require("./preload.js");
-const setup = require("./setup.js");
-const draw = require("./draw.js");
+const load_assets = require("./load_assets.js");
+const initialize = require("./initialize.js");
+const render = require("./render.js");
 const handle_inputs = require("./handle_inputs.js");
-
-// const containerElement = document.getElementsByTagName("main")[0];
+const place_camera = require("./place_camera.js");
+const move_character = require("./movement.js");
 
 window.preload = function() {
-  preload();
+  load_assets();
 }
 
 window.setup = function() {
-  setup();
+  initialize();
+  frameRate();
 };
 
 window.draw = function() {
   handle_inputs();
-  draw();
+  move_character();
+  place_camera();
+  render();
 };
 
-// window.P5 = new p5(sketch, containerElement);
-
-// function place_camera() {
-//   cam.centerX = player_coord.x;
-//   cam.centerY = player_coord.y;
-//   cam.centerZ = player_coord.z;
-//   camera(
-//     player_coord.x,
-//     player_coord.y,
-//     player_coord.z,
-//     player_coord.centerX,
-//     player_coord.centerY,
-//     player_coord.centerZ,
-//     player_coord.upX,
-//     player_coord.upY,
-//     player_coord.upZ
-//   )
-// }
+function camera_angle_test() {
+  if(typeof(window.g.i_val) == "undefined") {
+    window.g.i_val = 0;
+    window.g.direction = 1;
+  }
+  if( g.direction === 1 ) {
+    g.i_val -= 1;
+    if( g.i_val === -50 ) {
+      g.direction *= -1;
+    }
+  } else {
+    g.i_val += 1;
+    if ( g.i_val === 50 ) {
+      g.direction *= -1;
+    }
+  }
+  const angle = Math.PI / 2 + (Math.PI / 2) * (g.i_val / 50);
+  window.g.player.coords.player_theta = angle;
+}
