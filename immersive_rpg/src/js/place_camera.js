@@ -11,19 +11,19 @@ function place_camera() {
   const camera_theta = player_object.camera.camera_theta;
 
   cam.centerX = cx;
-  cam.centerY = cy - 50;
-  cam.centerZ = cz;
+  cam.centerY = cy;
+  cam.centerZ = cz + 150;
 
   const distance_behind = 350;
-  const camera_height = 120;
+  const camera_height = 220;
 
-  cam.x = player_coords.x + Math.sin(camera_theta) * distance_behind;
-  cam.y = player_coords.y - camera_height;
-  cam.z = player_coords.z - Math.cos(camera_theta) * distance_behind;
+  cam.x = player_coords.x - Math.sin(camera_theta) * distance_behind;
+  cam.y = player_coords.y + Math.cos(camera_theta) * distance_behind;
+  cam.z = player_coords.z + camera_height;
   
   cam.upX = 0;
-  cam.upY = 1;
-  cam.upZ = 0;
+  cam.upY = 0;
+  cam.upZ = -1;
 
   camera(
     cam.x,
@@ -38,9 +38,9 @@ function place_camera() {
   )
 
   let current_delta = camera_theta - player_theta;
-  let target_delta = 19 * current_delta / 20;
-  if(target_delta < -1 * Math.PI / 4) { target_delta = -1 * Math.PI / 4 }
-  if(target_delta > Math.PI / 4 )     { target_delta = Math.PI / 4 }
+  let target_delta = 9 * current_delta / 10;
+  // if(target_delta < -1 * Math.PI / 4) { target_delta = -1 * Math.PI / 4 }
+  // if(target_delta > Math.PI / 4 )     { target_delta = Math.PI / 4 }
   player_object.camera.camera_theta = player_coords.player_theta + target_delta;
 
 }

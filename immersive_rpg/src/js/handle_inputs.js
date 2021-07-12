@@ -14,7 +14,7 @@ function handle_inputs() {
     if ( keyIsDown(32) ) { // space bar to jump
       if ( !player.isJumping ) {
         player.isJumping = true;
-        player.velocity.y -= player.velocity.max_velocity;
+        player.velocity.z += player.jump_height;
       }
     }
 
@@ -32,13 +32,13 @@ function handle_inputs() {
     }
 
     if( directions[2] && !directions[3] ) { // forward movement
-      player.velocity.x = -1 * Math.sin(theta) * speed;
-      player.velocity.z = Math.cos(theta) * speed;
+      player.velocity.x = Math.sin(theta) * speed;
+      player.velocity.y = -1 * Math.cos(theta) * speed;
     }
 
     if( !directions[2] && directions[3] ) { // backwards movement
-      player.velocity.x = Math.sin(theta) * speed;
-      player.velocity.z = -1 * Math.cos(theta) * speed;
+      player.velocity.x = -1 * Math.sin(theta) * speed;
+      player.velocity.y = Math.cos(theta) * speed;
     }
 
     if( directions[0] && !directions[1] ) { // turn left
@@ -51,7 +51,7 @@ function handle_inputs() {
 
   } else {
     player.velocity.x = 0;
-    player.velocity.z = 0;
+    player.velocity.y = 0;
     player.isJumping = false;
   }
 }

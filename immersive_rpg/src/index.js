@@ -27,6 +27,7 @@ window.g = {
       ground : 0,
     },
     isJumping : false,
+    jump_height : 8,
     velocity : {
       x : 0,
       y : 0,
