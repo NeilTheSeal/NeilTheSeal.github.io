@@ -11,7 +11,6 @@ window.preload = function() {
 
 window.setup = function() {
   initialize();
-  frameRate();
 };
 
 window.draw = function() {
@@ -19,6 +18,7 @@ window.draw = function() {
   move_character();
   place_camera();
   render();
+  // noLoop();
 };
 
 function camera_angle_test() {

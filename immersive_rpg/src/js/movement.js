@@ -2,7 +2,7 @@ function move_player() {
   const player = window.g.player;
   const coords = player.coords;
   const velocity = player.velocity;
-  const gravity = 15;
+  const gravity = 25;
   const dg = gravity / frameRate();
 
   coords.x += velocity.x;
@@ -17,8 +17,9 @@ function move_player() {
   if ( player.coords.z <= player.coords.ground ) {
     velocity.z = 0;
     player.coords.z = player.coords.ground;
-    player.isJumping = false;
   }
+
+  window.g.place_camera();
 
 }
 

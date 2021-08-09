@@ -1,3 +1,5 @@
+const { display_terrain } = require("./world_functions.js");
+
 function display_main_character() {
   push();
     ambientMaterial(50, 150, 250);
@@ -12,40 +14,12 @@ function display_main_character() {
 
 function ambient_lighting() {
   background(250);
-  pointLight(255, 255, 255, 1200, 1200, 0);
-  pointLight(255, 255, 255, -1200, 0, -2000);
-  pointLight(255, 255, 255, 1200, -200, 1200);
-}
-
-function display_ground() {
-  push();
-  let xoff = 0;
-  let yoff = 0;
-  for ( let x = 0; x < cols; x++ ) {
-    xoff = 0;
-    for ( let y = 0; y < cols; y++ ) {
-      terrain[x][y] = map(noise(xoff, yoff), 0, 1, -100, 100);
-      xoff += 0.2;
-    }
-    yoff += 0.2;
-  } 
-  pop();
-
-  let scl = 100;
-
-  for ( let j = 0; j < terrain.length - 1; j++ ) {
-    beginShape(TRIANGLE_STRIP);
-    for ( let i = 0; i < terrain.length; i++ ) {
-      vertex(i * scl, j * scl, terrain[i][j]);
-      vertex(i * scl, (j + 1) * scl, terrain[i][j + 1])
-    }
-    endShape();
-  }
+  ambientLight(50);
 }
 
 function render() {
   ambient_lighting();
-  display_ground();
+  display_terrain();
   display_main_character();
 }
 

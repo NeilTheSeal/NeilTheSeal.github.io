@@ -12,10 +12,8 @@ function handle_inputs() {
     }
 
     if ( keyIsDown(32) ) { // space bar to jump
-      if ( !player.isJumping ) {
-        player.isJumping = true;
-        player.velocity.z += player.jump_height;
-      }
+      player.velocity.z += player.jump_height;
+      player.velocity.z = Math.max(player.velocity.z, player.jump_height);
     }
 
     if ( keyIsDown(87) ) { // W

@@ -27,7 +27,7 @@ window.g = {
       ground : 0,
     },
     isJumping : false,
-    jump_height : 8,
+    jump_height : 0.85,
     velocity : {
       x : 0,
       y : 0,
@@ -51,4 +51,5 @@ window.g = {
   },
 }
 
+require("./js/world_functions.js");
 require("./js/sketch.js");

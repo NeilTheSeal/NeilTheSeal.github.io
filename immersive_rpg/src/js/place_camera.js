@@ -37,6 +37,8 @@ function place_camera() {
     cam.upZ
   )
 
+    pointLight(color(120), cam.x, cam.y, cam.z)
+
   let current_delta = camera_theta - player_theta;
   let target_delta = 9 * current_delta / 10;
   // if(target_delta < -1 * Math.PI / 4) { target_delta = -1 * Math.PI / 4 }
@@ -44,5 +46,7 @@ function place_camera() {
   player_object.camera.camera_theta = player_coords.player_theta + target_delta;
 
 }
+
+window.g.place_camera = place_camera;
 
 module.exports = place_camera;
