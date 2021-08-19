@@ -40,7 +40,8 @@ for ( let i = 0; i < videoContainers.length; i++ ) {
   const video = document.createElement("video")
   video.src = "./media/Zulrah.mp4";
   video.setAttribute("type", "video/mp4");
-  video.setAttribute("controls", "true");
+  video.setAttribute("disablepictureinpicture", "");
+  video.setAttribute("preload", "auto");
   videoContainer.appendChild(video);
 
   videos.push(video);
