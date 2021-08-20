@@ -82,5 +82,9 @@ function selectVideo(n) {
       video.muted = false;
     }
   };
+  const loadings = document.getElementsByClassName("loading-text");
+  for ( let i = 0; i < loadings.length; i++ ) {
+    loadings[i].style.display = "none";
+  }
   mainBody.style.gridTemplateColumns = "1fr";
 }
