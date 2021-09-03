@@ -19,7 +19,7 @@ body {
 }
 
 .title-text {
-  margin: 10px 0px 15px 20px;
+  margin: 0px 0px 15px 20px;
   display: grid;
   align-content: center;
   align-items: center;
@@ -32,11 +32,24 @@ body {
   width: max-content;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: black;
+}
+
+.title-text::after {
+  content:"";
+  border-bottom: 1px solid white;
+  width: calc(100vw - 20px);
+  position: absolute;
+  top: 53px;
+  left: 50vw;
+  transform: translateX(-50%);
 }
 
 a {
-  color: cornflowerblue;
+  color: rgb(85, 144, 255);
+}
+
+a:hover {
+  color: rgb(163, 195, 255);
 }
 
 ul {
@@ -66,9 +79,11 @@ main {
 #main-text {
   width: max-content;
   margin: 10px;
-  padding: 10px;
-  background: rgb(26, 26, 26);
-  box-shadow: 0px 0px 2px 2px rgb(255, 255, 255, 0.25)
+  margin-left: 40px;
+  padding: 15px;
+  background: rgb(75, 75, 75);
+  box-shadow: 0px 0px 2px 2px rgb(255, 255, 255, 0.25);
+  border-radius: 15px;
 }
 
 #main-text>ul {
