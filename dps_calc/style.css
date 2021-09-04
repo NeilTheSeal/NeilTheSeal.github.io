@@ -1,0 +1,326 @@
+nav {
+  width: 100vw;
+  height: 80px;
+  background-color: darkslategray;
+  padding: 15px;
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  justify-items: center;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-button {
+  padding: 10px;
+  background-color: lightgray;
+  margin: 0px;
+  width: max-content;
+  text-align: center;
+  border-radius: 2px;
+  box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.5);
+  border: 1px solid black;
+  cursor: pointer;
+}
+
+.nav-button>a {
+  text-decoration: none;
+  color: black;
+}
+
+.nav-button:hover {
+  box-shadow: 0px 0px 2px 2px rgba(255, 255, 0, 0.5);
+  background-color: white;
+}
+
+.page-title {
+  font-size: 1.5rem;
+  color: aliceblue;
+  white-space: nowrap;
+}
+
+.step {
+  position: relative;
+  background-color: rgb(245, 245, 245);
+  width: 650px;
+  margin: 20px auto;
+  padding: 20px 50px;
+  border: 1px solid black;
+  display: grid;
+}
+
+.step-label {
+  display: grid;
+  justify-content: center;
+  justify-items: center;
+  align-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  font-size: 1.25rem;
+  border-radius: 50%;
+  background: cadetblue;
+  border: 1px solid black;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+.display-name {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 5px;
+  width: max-content;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  text-align: center;
+  margin: 20px auto;
+  gap: 10px;
+}
+
+.display-name-label {
+  font-size: 1.15rem;
+}
+
+#fetch-stats {
+  background-color: darkkhaki;
+  width: max-content;
+  justify-self: center;
+  padding: 4px 18px;
+  border-radius: 5px;
+  border: 1px solid black;
+  box-shadow: 0px 0px 1px 1px lightgrey;
+  cursor: pointer;
+}
+
+#fetch-stats:hover {
+  /* box-shadow: 0px 0px 2px 2px rgba(255, 255, 0, 0.5); */
+  background-color: khaki;
+}
+
+.or {
+  margin: auto;
+  font-size: 1.15rem;
+  width: 400px;
+  text-align: center;
+}
+
+#combat-levels {
+  display: grid;
+  grid-template-columns: 10ch 60px;
+  gap: 2px;
+  margin: 20px auto;
+  width: 400px;
+  justify-content: center;
+}
+
+#combat-levels>.input-label {
+  justify-self: end;
+  align-self: center;
+  margin-right: 10px;
+}
+
+#combat-levels>input {
+  padding: 2px;
+}
+
+#attack-style {
+  display: grid;
+  grid-template-columns: 100%;
+  margin: 20px auto;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+}
+
+#attack-style>.span {
+  font-size: 1.15rem;
+}
+
+#combat-styles {
+  display: grid;
+  grid-template-columns: max-content max-content max-content;
+  gap: 10px;
+  margin: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.combat-style-icon {
+  width: 40px;
+  height: 40px;
+  margin-right: 30px;
+  border: 1px solid black;
+  border-radius: 50%;
+  padding: 5px;
+  object-fit: none;
+  background-color: rgb(240, 240, 240);
+  box-shadow: 0px 0px 2px black;
+}
+
+.combat-style-icon:hover {
+  background-color: white;
+  box-shadow: 0px 0px 2px rgba(255, 255, 0, 0.5);
+}
+
+.combat-style-icon.selected {
+  box-shadow: 0px 0px 3px 2px rgba(0, 0, 255, 0.75);
+}
+
+.select-hidden {
+  display: none !important;
+}
+
+#attack-style>.select>select {
+  width: 100%;
+  padding: 5px;
+}
+
+#attack-style>.select {
+  height: 75px;
+  padding: 5px;
+  display: grid;
+  grid-template-columns: 180px 230px;
+  align-content: start;
+  align-items: center;
+  justify-items: end;
+  justify-self: center;
+  gap: 5px;
+}
+
+.gear-title {
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 1.15rem;
+}
+
+#gear-background {
+  width: max-content;
+  justify-self: center;
+  position: relative;
+}
+
+#gear-container {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+}
+
+.gear-selection {
+  width: 65px;
+  height: 65px;
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.25);
+  border: 1px solid white;
+}
+
+.gear-selection:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.gear-image-container {
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.gear-image-container>img {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  object-fit: contain;
+  z-index: 0;
+}
+
+.gear-image-container>img[src="none"] {
+  display: none;
+}
+
+.list-hidden {
+  display: none !important;
+}
+
+.input-select {
+  z-index: 10;
+}
+
+#select-helmet-container {
+  left: 40%;
+  top: 1.5%;
+}
+
+#select-cape-container {
+  left: 17.8%;
+  top: 20.5%;
+}
+
+#select-necklace-container {
+  left: 40%;
+  top: 20.5%;
+}
+
+#select-ammunition-container {
+  left: 62.5%;
+  top: 20.5%;
+}
+
+#select-weapon-container {
+  left: 9.5%;
+  top: 39.5%;
+}
+
+#select-body-container {
+  left: 40%;
+  top: 39.5%;
+}
+
+#select-shield-container {
+  left: 70.5%;
+  top: 39.5%;
+}
+
+#select-legs-container {
+  left: 40%;
+  top: 59%;
+}
+
+#select-hands-container {
+  left: 9.5%;
+  top: 78.2%;
+}
+
+#select-feet-container {
+  left: 40%;
+  top: 78.2%;
+}
+
+#select-ring-container {
+  left: 70.5%;
+  top: 78.2%;
+}
+
+.gear-label {
+  width: max-content;
+  display: grid;
+  padding: 8px;
+  background-color: white;
+  position: absolute;
+  left: calc(100% + 10px);
+  border-radius: 3px;
+  border: 1px solid black;
+  z-index: 999999;
+}
+
+input.input-select {
+  font-size: 0.9rem;
+}
+
+datalist {
+  font-size: 0.9rem;
+}
+
+datalist>option {
+  font-size: 0.9rem;
+}

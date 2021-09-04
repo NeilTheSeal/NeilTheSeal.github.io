@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +11,254 @@
   <script src="bootstrap.bundle.min.js"></script>
   <script src="./resources/equipment_list.js"></script>
 </head>
+
 <body>
-  
+
+  <nav>
+    <div class="nav-button" href="/"><a href="/">&longleftarrow; Back</a></div>
+    <div class="page-title">Old School Runescape DPS Calculator (in progress)</div>
+  </nav>
+
+  <div class="step one">
+
+    <div class="step-label">1</div>
+
+    <div class="input display-name">
+      <div class="display-name-label">Display name:</div>
+      <input id="display-name" type="text" />
+      <div id="fetch-stats">Fetch Stats</div>
+    </div>
+
+    <div class="or">or enter stats manually:</div>
+
+    <div id="combat-levels" class="input group">
+      <div class="input-label">attack</div><input id="attack-level" type="number" value="1" />
+      <div class="input-label">strength</div><input id="strength-level" type="number" value="1" />
+      <div class="input-label">defense</div><input id="defense-level" type="number" value="1" />
+      <div class="input-label">magic</div><input id="magic-level" type="number" value="1" />
+      <div class="input-label">ranged</div><input id="ranged-level" type="number" value="1" />
+      <div class="input-label">hitpoints</div><input id="hitpoints-level" type="number" value="10" />
+      <div class="input-label">prayer</div><input id="prayer-level" type="number" value="1" />
+    </div>
+
+  </div>
+
+  <div id="attack-style" class="step two">
+    <div class="step-label">2</div>
+
+    <div class="span">Select an attack style</div>
+
+    <div id="combat-styles">
+      <div class="melee-icon" value="melee">
+        <img src="./resources/strength.png" class="combat-style-icon selected" />
+      </div>
+      <div class="ranged-icon" value="ranged">
+        <img src="./resources/ranged.png" class="combat-style-icon" />
+      </div>
+      <div class="magic-icon" value="magic">
+        <img src="./resources/magic.png" class="combat-style-icon" />
+      </div>
+    </div>
+
+    <div class="select select-group melee select-style">
+      Select attack style:
+      <select id="select-attack-style">
+        <option value="melee-accurate">accurate</option>
+        <option value="melee-aggressive">aggressive</option>
+        <option value="melee-defensive">defensive</option>
+      </select>
+      Select damage type:
+      <select id="select-melee-attack-type">
+        <option value="stab">stab</option>
+        <option value="slash">slash</option>
+        <option value="crush">crush</option>
+      </select>
+    </div>
+
+    <div class="select ranged select-style select-hidden">
+      Select modifier:
+      <select id="select-ranged-attack-type">
+        <option value="ranged-accurate">accurate</option>
+        <option value="ranged-rapid">rapid</option>
+        <option value="ranged-longrange">long-ranged</option>
+      </select>
+    </div>
+
+    <div class="select magic select-style select-hidden">
+      Select spell:
+      <select id="select-magic-spell">
+        <option value="none" default>none (powered staff)</option>
+      </select>
+    </div>
+
+  </div>
+
+  <div id="gear-selection" class="step three">
+    <div class="step-label">3</div>
+    <div class="gear-title">
+      Select gear:
+    </div>
+    <div id="gear-background">
+      <img src="./resources/slots.png" />
+      <div id="gear-container">
+
+        <div class="gear-selection" id="select-helmet-container">
+          <div class="gear-label list-hidden" id="select-helmet-datalist-container">
+            <div>Type/select helmet:</div>
+            <input class="input-select" list="select-helmet" id="select-helmet-input" name="select-helmet-input" />
+            <datalist id="select-helmet"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="helmet-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-cape-container">
+
+          <div class="gear-label list-hidden" id="select-cape-datalist-container">
+            <div>Type/select cape:</div>
+            <input class="input-select" list="select-cape" id="select-cape-input" name="select-cape-input" />
+            <datalist id="select-cape"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="cape-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-necklace-container">
+
+          <div class="gear-label list-hidden" id="select-necklace-datalist-container">
+            <div>Type/select necklace:</div>
+            <input class="input-select" list="select-necklace" id="select-necklace-input" name="select-necklace-input" />
+            <datalist id="select-necklace"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="necklace-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-ammunition-container">
+
+          <div class="gear-label list-hidden" id="select-ammunition-datalist-container">
+            <div>Type/select ammunition:</div>
+            <input class="input-select" list="select-ammunition" id="select-ammunition-input" name="select-ammunition-input" />
+            <datalist id="select-ammunition"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="ammunition-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-weapon-container">
+
+          <div class="gear-label list-hidden" id="select-weapon-datalist-container">
+            <div>Type/select weapon:</div>
+            <input class="input-select" list="select-weapon" id="select-weapon-input" name="select-weapon-input" />
+            <datalist id="select-weapon"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="weapon-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-body-container">
+
+          <div class="gear-label list-hidden" id="select-body-datalist-container">
+            <div>Type/select body:</div>
+            <input class="input-select" list="select-body" id="select-body-input" name="select-body-input" />
+            <datalist id="select-body"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="body-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-shield-container">
+
+          <div class="gear-label list-hidden" id="select-shield-datalist-container">
+            <div>Type/select shield:</div>
+            <input class="input-select" list="select-shield" id="select-shield-input" name="select-shield-input" />
+            <datalist id="select-shield"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="shield-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-legs-container">
+
+          <div class="gear-label list-hidden" id="select-legs-datalist-container">
+            <div>Type/select legs:</div>
+            <input class="input-select" list="select-legs" id="select-legs-input" name="select-legs-input" />
+            <datalist id="select-legs"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="legs-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-hands-container">
+
+          <div class="gear-label list-hidden" id="select-hands-datalist-container">
+            <div>Type/select hands:</div>
+            <input class="input-select" list="select-hands" id="select-hands-input" name="select-hands-input" />
+            <datalist id="select-hands"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="hands-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-feet-container">
+
+          <div class="gear-label list-hidden" id="select-feet-datalist-container">
+            <div>Type/select feet:</div>
+            <input class="input-select" list="select-feet" id="select-feet-input" name="select-feet-input" />
+            <datalist id="select-feet"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="feet-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-ring-container">
+
+          <div class="gear-label list-hidden" id="select-ring-datalist-container">
+            <div>Type/select ring:</div>
+            <input class="input-select" list="select-ring" id="select-ring-input" name="select-ring-input" />
+            <datalist id="select-ring"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="ring-thumbnail" src="none" />
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <script src="main.js"></script>
 </body>
+
 </html>

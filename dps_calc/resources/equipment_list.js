@@ -41709,7 +41709,7 @@ window.equipment.legs = {
   }
 };
 
-window.equipment.neck = {
+window.equipment.necklace = {
   "10th squad sigil": {
     "image_url": "https://oldschool.runescape.wiki/images/e/ea/10th_squad_sigil.png?3e370",
     "wiki_url": "https://oldschool.runescape.wiki/w/10th_squad_sigil",
