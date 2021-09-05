@@ -1,5 +1,16 @@
 window.globals = {
   attack_style : "melee",
+  helm : "",
+  cape : "",
+  necklace : "",
+  ammunition : "",
+  weapon : "",
+  body : "",
+  shield : "",
+  legs : "",
+  hands : "",
+  feet : "",
+  ring : "",
 }
 
 const select_combat_button = document.getElementById("combat-styles").children;
@@ -54,12 +65,11 @@ for( let i = 0; i < 3; i++ ) {
     for(let i = 0; i < hide.length; i++) {
       hide[i].classList.add("list-hidden");
     }
-    console.log(select_input_container);
     select_input_container.classList.remove("list-hidden");
   })
 })
 
-document.body.addEventListener("click", function(e) {
+document.body.addEventListener("mousedown", function(e) {
   let exit = true;
   let target = e.target;
   if(e.target.classList.contains("input-select") || e.target.classList.contains("gear-image-container")) {
@@ -74,11 +84,38 @@ document.body.addEventListener("click", function(e) {
 });
 
 document.body.addEventListener("keyup", function(e) {
-  console.log(e.keyCode);
-  if( e.keyCode === 13 ) {
+  if( e.code === "Enter" ) {
     const hide = document.getElementsByClassName("gear-label");
     for(let i = 0; i < hide.length; i++) {
       hide[i].classList.add("list-hidden");
     }
   }
 })
+
+const input_selects = document.getElementsByClassName("input-select");
+
+for ( let i = 0; i < input_selects.length; i++ ) {
+  const select = input_selects[i];
+  select.addEventListener("change", function() {
+    const hide = document.getElementsByClassName("gear-label");
+    const equipment_piece = select.value;
+    for(let i = 0; i < hide.length; i++) {
+      hide[i].classList.add("list-hidden");
+    };
+    const slot = select.getAttribute("name");
+    globals[slot] = select.value;
+    const img_elt = document.getElementById(`${slot}-thumbnail`);
+    const data = equipment[slot][equipment_piece];
+    let img_src, wiki_url;
+    if(data == undefined) {
+      img_src = "none";
+      wiki_src = "";
+    } else {
+      img_src = data.image_url;
+      wiki_url = data.wiki_url;
+    }
+    
+    img_elt.setAttribute("src", img_src);
+
+  })
+}

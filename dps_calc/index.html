@@ -105,7 +105,7 @@
         <div class="gear-selection" id="select-helmet-container">
           <div class="gear-label list-hidden" id="select-helmet-datalist-container">
             <div>Type/select helmet:</div>
-            <input class="input-select" list="select-helmet" id="select-helmet-input" name="select-helmet-input" />
+            <input class="input-select" list="select-helmet" id="select-helmet-input" name="helmet" />
             <datalist id="select-helmet"></datalist>
           </div>
 
@@ -119,7 +119,7 @@
 
           <div class="gear-label list-hidden" id="select-cape-datalist-container">
             <div>Type/select cape:</div>
-            <input class="input-select" list="select-cape" id="select-cape-input" name="select-cape-input" />
+            <input class="input-select" list="select-cape" id="select-cape-input" name="cape" />
             <datalist id="select-cape"></datalist>
           </div>
 
@@ -133,7 +133,7 @@
 
           <div class="gear-label list-hidden" id="select-necklace-datalist-container">
             <div>Type/select necklace:</div>
-            <input class="input-select" list="select-necklace" id="select-necklace-input" name="select-necklace-input" />
+            <input class="input-select" list="select-necklace" id="select-necklace-input" name="necklace" />
             <datalist id="select-necklace"></datalist>
           </div>
 
@@ -147,7 +147,7 @@
 
           <div class="gear-label list-hidden" id="select-ammunition-datalist-container">
             <div>Type/select ammunition:</div>
-            <input class="input-select" list="select-ammunition" id="select-ammunition-input" name="select-ammunition-input" />
+            <input class="input-select" list="select-ammunition" id="select-ammunition-input" name="ammunition" />
             <datalist id="select-ammunition"></datalist>
           </div>
 
@@ -161,7 +161,7 @@
 
           <div class="gear-label list-hidden" id="select-weapon-datalist-container">
             <div>Type/select weapon:</div>
-            <input class="input-select" list="select-weapon" id="select-weapon-input" name="select-weapon-input" />
+            <input class="input-select" list="select-weapon" id="select-weapon-input" name="weapon" />
             <datalist id="select-weapon"></datalist>
           </div>
 
@@ -175,7 +175,7 @@
 
           <div class="gear-label list-hidden" id="select-body-datalist-container">
             <div>Type/select body:</div>
-            <input class="input-select" list="select-body" id="select-body-input" name="select-body-input" />
+            <input class="input-select" list="select-body" id="select-body-input" name="body" />
             <datalist id="select-body"></datalist>
           </div>
 
@@ -189,7 +189,7 @@
 
           <div class="gear-label list-hidden" id="select-shield-datalist-container">
             <div>Type/select shield:</div>
-            <input class="input-select" list="select-shield" id="select-shield-input" name="select-shield-input" />
+            <input class="input-select" list="select-shield" id="select-shield-input" name="shield" />
             <datalist id="select-shield"></datalist>
           </div>
 
@@ -203,7 +203,7 @@
 
           <div class="gear-label list-hidden" id="select-legs-datalist-container">
             <div>Type/select legs:</div>
-            <input class="input-select" list="select-legs" id="select-legs-input" name="select-legs-input" />
+            <input class="input-select" list="select-legs" id="select-legs-input" name="legs" />
             <datalist id="select-legs"></datalist>
           </div>
 
@@ -217,7 +217,7 @@
 
           <div class="gear-label list-hidden" id="select-hands-datalist-container">
             <div>Type/select hands:</div>
-            <input class="input-select" list="select-hands" id="select-hands-input" name="select-hands-input" />
+            <input class="input-select" list="select-hands" id="select-hands-input" name="hands" />
             <datalist id="select-hands"></datalist>
           </div>
 
@@ -231,7 +231,7 @@
 
           <div class="gear-label list-hidden" id="select-feet-datalist-container">
             <div>Type/select feet:</div>
-            <input class="input-select" list="select-feet" id="select-feet-input" name="select-feet-input" />
+            <input class="input-select" list="select-feet" id="select-feet-input" name="feet" />
             <datalist id="select-feet"></datalist>
           </div>
 
@@ -245,7 +245,7 @@
 
           <div class="gear-label list-hidden" id="select-ring-datalist-container">
             <div>Type/select ring:</div>
-            <input class="input-select" list="select-ring" id="select-ring-input" name="select-ring-input" />
+            <input class="input-select" list="select-ring" id="select-ring-input" name="ring" />
             <datalist id="select-ring"></datalist>
           </div>
 
@@ -253,6 +253,75 @@
             <img id="ring-thumbnail" src="none" />
           </div>
 
+        </div>
+      </div>
+    </div>
+
+    <div id="stats-background-container">
+      <div id="stats-background">
+        <div class="section-label">Attack bonuses</div>
+
+        <div id="slash-atk-bonus-container" class="bonus-container">
+          <div id="slash-atk-label" class="bonus-label">slash atk:</div>
+          <div id="slash-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="stab-atk-bonus-container" class="bonus-container">
+          <div id="stab-atk-label" class="bonus-label">stab atk:</div>
+          <div id="stab-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="crush-atk-bonus-container" class="bonus-container">
+          <div id="crush-atk-label" class="bonus-label">crush atk:</div>
+          <div id="crush-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-atk-bonus-container" class="bonus-container">
+          <div id="ranged-atk-label" class="bonus-label">ranged atk:</div>
+          <div id="ranged-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-atk-bonus-container" class="bonus-container">
+          <div id="magic-atk-label" class="bonus-label">magic atk:</div>
+          <div id="magic-atk-value" class="bonus-value">+0</div>
+        </div>
+
+        <div class="section-label">Defense bonuses</div>
+
+        <div id="slash-def-bonus-container" class="bonus-container">
+          <div id="slash-def-label" class="bonus-label">slash def:</div>
+          <div id="slash-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="stab-def-bonus-container" class="bonus-container">
+          <div id="stab-def-label" class="bonus-label">stab def:</div>
+          <div id="stab-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="crush-def-bonus-container" class="bonus-container">
+          <div id="crush-def-label" class="bonus-label">crush def:</div>
+          <div id="crush-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-def-bonus-container" class="bonus-container">
+          <div id="ranged-def-label" class="bonus-label">ranged def:</div>
+          <div id="ranged-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-def-bonus-container" class="bonus-container">
+          <div id="magic-def-label" class="bonus-label">magic def:</div>
+          <div id="magic-def-value" class="bonus-value">+0</div>
+        </div>
+
+        <div class="section-label">Strength bonuses</div>
+
+        <div id="melee-str-bonus-container" class="bonus-container">
+          <div id="melee-str-label" class="bonus-label">melee str:</div>
+          <div id="melee-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-str-bonus-container" class="bonus-container">
+          <div id="ranged-str-label" class="bonus-label">ranged str:</div>
+          <div id="ranged-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-str-bonus-container" class="bonus-container">
+          <div id="magic-str-label" class="bonus-label">magic str:</div>
+          <div id="magic-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="prayer-bonus-container" class="bonus-container">
+          <div id="prayer-bonus-label" class="bonus-label">prayer:</div>
+          <div id="prayer-bonus-value" class="bonus-value">+0</div>
         </div>
       </div>
     </div>
