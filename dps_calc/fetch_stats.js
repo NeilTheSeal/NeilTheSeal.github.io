@@ -7,12 +7,11 @@ const magic_input = document.getElementById("magic-level");
 const ranged_input = document.getElementById("ranged-level");
 const prayer_input = document.getElementById("prayer-level");
 
-function fetch_stats() {
+window.fetch_stats = function() {
 
   let username = document.getElementById("display-name").value;
   if (username == "") return
-
-  fetch_stats_button.innerHTML = "Fetching . . .";
+  document.getElementsByClassName("or")[0].innerHTML = "retrieving data . . .";
   fetch_stats_button.setAttribute("disabled", "yes");
   username = encodeURIComponent(username);
   const URL = `https://neil-hendren-web-services.herokuapp.com/hiscores_request?username=${username}`;
@@ -42,7 +41,6 @@ function fetch_stats() {
       player_stats.prayer = Number(stats.prayer.level);
     }
 
-    fetch_stats_button.innerHTML = "Fetch Stats";
     fetch_stats_button.removeAttribute("disabled");
 
     attack_input.value = player_stats.attack;
@@ -52,6 +50,8 @@ function fetch_stats() {
     magic_input.value = player_stats.magic;
     ranged_input.value = player_stats.ranged;
     prayer_input.value = player_stats.prayer;
+
+    document.getElementsByClassName("or")[0].innerHTML = "or enter stats manually:";
   })
 }
 
