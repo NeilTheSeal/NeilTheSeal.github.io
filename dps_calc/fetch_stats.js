@@ -11,7 +11,7 @@ window.fetch_stats = function() {
 
   let username = document.getElementById("display-name").value;
   if (username == "") return
-  document.getElementsByClassName("or")[0].innerHTML = "retrieving data . . .";
+  document.getElementsByClassName("or")[0].innerHTML = "retrieving data ... this may take a few seconds";
   fetch_stats_button.setAttribute("disabled", "yes");
   username = encodeURIComponent(username);
   const URL = `https://neil-hendren-web-services.herokuapp.com/hiscores_request?username=${username}`;
