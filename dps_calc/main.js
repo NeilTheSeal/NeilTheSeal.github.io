@@ -239,6 +239,14 @@ for (let i = 0; i < 3; i++) {
     option.value = gear_list[i];
     select.appendChild(option);
   };
+  if (name == "weapon") {
+    const two_hand_gear_list = Object.keys(equipment.two_hand);
+    for (let i = 0; i < gear_list.length; i++) {
+      const option = document.createElement("option");
+      option.value = two_hand_gear_list[i];
+      select.appendChild(option);
+    };
+  }
   const container_name = `select-${name}-container`;
   const container = document.getElementById(container_name);
   container.addEventListener("click", function () {
@@ -300,7 +308,7 @@ for (let i = 0; i < input_selects.length; i++) {
       magic_def: 0,
       prayer: 0,
     }
-    const data = equipment[slot][equipment_piece] || default_stats;
+    const data = equipment[slot][equipment_piece] || equipment["two_hand"][equipment_piece] || default_stats;
     let img_src, wiki_url;
     if (data == undefined || data === default_stats) {
       img_src = "none";
@@ -308,6 +316,13 @@ for (let i = 0; i < input_selects.length; i++) {
     } else {
       img_src = data.image_url;
       wiki_url = data.wiki_url;
+    }
+
+    if(Object.keys(equipment["two_hand"]).includes(equipment_piece)) {
+      const shield_input = document.getElementById("select-shield-input");
+      shield_input.value = "";
+      let evt = new CustomEvent('change');
+      shield_input.dispatchEvent(evt);
     }
 
     img_elt.setAttribute("src", img_src);
