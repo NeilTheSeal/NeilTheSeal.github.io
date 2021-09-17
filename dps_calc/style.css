@@ -193,16 +193,21 @@ input[type=number] {
   display: none !important;
 }
 
-#attack-style>.select>select {
+#select-stance-container {
+  grid-template-columns: max-content;
+  justify-content: center;
+}
+
+#select-stance-container>.select>select {
   width: 100%;
   padding: 5px;
 }
 
-#attack-style>.select {
-  height: 75px;
+#select-stance-container>.select {
+  height: 50px;
   padding: 5px;
   display: grid;
-  grid-template-columns: 180px 230px;
+  grid-template-columns: 180px 250px;
   align-content: start;
   align-items: center;
   justify-items: end;
@@ -210,7 +215,37 @@ input[type=number] {
   gap: 5px;
 }
 
-.gear-title {
+#setup-results {
+  grid-column: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+#setup-title {
+  grid-column: 1 / 3;
+  text-align: center;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+#setup-results>.left {
+  justify-self: right;
+  margin-right: 5px;
+  margin-top: 5px;
+}
+
+#setup-results>.right {
+  justify-self: left;
+  margin-left: 5px;
+  margin-top: 5px;
+  min-width: 5ch;
+  text-align: center;
+  padding: 2px;
+}
+
+.title {
   text-align: center;
   margin-bottom: 20px;
   font-size: 1.15rem;
@@ -438,4 +473,70 @@ datalist>option {
 #special-effects-list {
   width: 100%;
   padding-bottom: 10px;
+}
+
+#select-monster-container {
+  grid-template-columns: 1fr 1fr;
+}
+
+#monster-selection-label {
+  text-align: right;
+  width: 100%;
+  padding: 5px;
+}
+
+#monster-select-input {
+  width: 280px;
+  margin-left: 10px;
+  padding: 5px;
+  padding-left: 10px;
+  margin-bottom: 20px;
+}
+
+.opponent-stat-label {
+  text-align: right;
+  font-size: 0.85rem;
+  align-self: center;
+  margin-top: 1px;
+  transform: translateX(40px);
+}
+
+.opponent-stat {
+  text-align: center;
+  font-size: 0.85rem;
+  align-self: center;
+  margin-left: 10px;
+  width: 5ch;
+  margin-top: 2px;
+  transform: translateX(40px);
+}
+
+#stats-spacer {
+  grid-column: 1 / 3;
+  height: 10px;
+}
+
+.select.magic.select-style {
+  width: 540px;
+  display: grid;
+  grid-template-columns: max-content 1fr !important;
+}
+
+#slayer-task-input-container {
+  grid-column: 1 / 3;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-bottom: 15px;
+  margin-top: 5px;
+}
+
+#slayer-task-input-label {
+  text-align: right;
+}
+
+#slayer-task-input {
+  justify-self: left;
+  margin-left: 10px;
+  width: 20px;
+  align-self: center;
 }

@@ -225,7 +225,7 @@ window.globals = {
     magic_def: 0,
     prayer: 0,
   },
-  player_effective_stats : {
+  player_effective_stats: {
     attack: 1,
     strength: 1,
     defense: 1,
@@ -233,8 +233,8 @@ window.globals = {
     magic: 1,
     melee_attack_prayer: 0,
     melee_strength_prayer: 0,
-    melee_style_bonus : 0,
-    melee_other : 0,
+    melee_style_bonus: 0,
+    melee_other: 0,
     ranged_accuracy_prayer: 0,
     ranged_strength_prayer: 0,
     magic_prayer: 0,
@@ -330,22 +330,11 @@ for (let i = 0; i < 3; i++) {
       hide[i].classList.add("list-hidden");
     }
     select_input_container.classList.remove("list-hidden");
+    const inp = select_input_container.getElementsByTagName("input")[0];
+    inp.focus();
   })
 })
 
-document.body.addEventListener("mousedown", function (e) {
-  let exit = true;
-  let target = e.target;
-  if (e.target.classList.contains("input-select") || e.target.classList.contains("gear-image-container")) {
-    exit = false;
-  }
-  if (exit) {
-    const hide = document.getElementsByClassName("gear-label");
-    for (let i = 0; i < hide.length; i++) {
-      hide[i].classList.add("list-hidden");
-    }
-  }
-});
 
 const input_selects = document.getElementsByClassName("input-select");
 
@@ -387,7 +376,7 @@ for (let i = 0; i < input_selects.length; i++) {
     const data = equipment[slot][equipment_piece] || equipment["two_hand"][equipment_piece] || default_stats;
     let img_src, wiki_url, name;
     if (data == undefined || data === default_stats) {
-      img_src = "data:image/jpeg;base64, ";
+      img_src = "none";
       wiki_src = "";
       name = "none";
       wiki_url = "#";
@@ -444,6 +433,21 @@ for (let i = 0; i < input_selects.length; i++) {
     }
   })
 }
+
+document.body.addEventListener("mousedown", function (e) {
+  let exit = true;
+  let target = e.target;
+  if (e.target.classList.contains("input-select") || e.target.classList.contains("gear-image-container")) {
+    exit = false;
+  }
+  if (exit) {
+    const hide = document.getElementsByClassName("gear-label");
+    for (let i = 0; i < hide.length; i++) {
+      hide[i].classList.add("list-hidden");
+    }
+  }
+});
+
 
 document.getElementById("display-name").addEventListener("keydown", (e) => {
   if (e.key == "Enter") {
@@ -518,35 +522,75 @@ function updateGearStatsText() {
 }
 
 const set = {
-  items : ["Diamond bolts (e)"],
-  attack_style : "ranged",
-  dps_function : function() {
+  items: ["Diamond bolts (e)"],
+  attack_style: "ranged",
+  dps_function: function () {
 
   }
 }
 
 function check_for_set_effects() {
   const equipment_names = {
-    "helm" : globals.helm.name,
-    "cape" : globals.cape.name,
-    "necklace" : globals.necklace.name,
-    "ammunition" : globals.ammunition.name,
-    "weapon" : globals.weapon.name,
-    "body" : globals.body.name,
-    "shield" : globals.shield.name,
-    "legs" : globals.legs.name,
-    "hands" : globals.hands.name,
-    "feet" : globals.feet.name,
-    "ring" : globals.ring.name,
+    "helm": globals.helm.name,
+    "cape": globals.cape.name,
+    "necklace": globals.necklace.name,
+    "ammunition": globals.ammunition.name,
+    "weapon": globals.weapon.name,
+    "body": globals.body.name,
+    "shield": globals.shield.name,
+    "legs": globals.legs.name,
+    "hands": globals.hands.name,
+    "feet": globals.feet.name,
+    "ring": globals.ring.name,
   }
 
   let equipment_names_list = [];
   const equipped_items = Object.values(equipment_names);
-  for( i in equipped_items ) {
-    if( equipped_items[i] !== "" ) {
+  for (i in equipped_items) {
+    if (equipped_items[i] !== "") {
       equipment_names_list.push(equipped_items[i])
     }
   }
-  
 
 }
+
+const weapon_types = [
+  "bow",
+  "spear",
+  "2h_sword",
+  "scythe",
+  "claw",
+  "polearm",
+  "unarmed",
+  "blunt",
+  "axe",
+  "crossbow",
+  "spiked",
+  "gun",
+  "staff",
+  "polestaff",
+  "salamander",
+  "slash_sword",
+  "thrown",
+  "bludgeon",
+  "bulwark",
+  "stab_sword",
+  "powered_staff",
+  "banner",
+  "pickaxe",
+  "whip",
+  "chinchompas",
+  "bladed_staff"
+];
+
+const monster_select_datalist = document.getElementById("monster-select-datalist");
+const monster_names = Object.keys(monsters);
+monster_names.forEach(monster_name => {
+  // const monster = monsters[monster_name];
+  const option = document.createElement("option");
+  option.value = monster_name;
+  option.innerHTML = monster_name;
+  monster_select_datalist.appendChild(option);
+})
+
+document.getElementById("select-magic-spell").value = "wind-strike";
