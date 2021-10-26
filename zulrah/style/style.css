@@ -184,3 +184,20 @@ body {
     top: 100px;
     z-index: -1;
 }
+
+@media screen and (max-height: 815px) {
+    .start-buttons {
+        height: 50px;
+    }
+    .click-option {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+        margin: 5px;
+    }
+    .video-option video {
+        max-height: calc(50vh - 130px) !important;
+    }
+    .main-body>.container {
+        margin: 5px;
+    }
+}
