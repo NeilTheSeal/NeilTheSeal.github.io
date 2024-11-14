@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Disease Spread Interactive Model</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="description"
+      content="An interactive graphic depicting the spread of disease over time.ink"
+    />
+    <meta name="author" content="Neil Hendren" />
+  </head>
+
+  <body>
+    <div id="root">
+      <div id="controls">
+        <div class="slider-wrapper">
+          <div class="slider-label">β (transmission rate)</div>
+          <input
+            id="b-slider"
+            type="range"
+            value="0.5"
+            min="0.01"
+            max="1"
+            step="0.01"
+          />
+          <div id="b-value" class="value-label">0.50</div>
+        </div>
+        <div class="slider-wrapper">
+          <div class="slider-label">γ (recovery rate)</div>
+          <input
+            id="g-slider"
+            type="range"
+            value="0.1"
+            min="0.01"
+            max="1"
+            step="0.001"
+          />
+          <div id="g-value" class="value-label">0.10</div>
+        </div>
+        <div class="slider-wrapper">
+          <div class="slider-label">initially infected</div>
+          <input
+            id="pi-slider"
+            type="range"
+            value="0"
+            min="0"
+            max="1"
+            step="0.01"
+          />
+          <div id="pi-value" class="value-label">1</div>
+        </div>
+        <div class="slider-wrapper">
+          <div class="slider-label">initially immune</div>
+          <input
+            id="ii-slider"
+            type="range"
+            value="0"
+            min="0"
+            max="1"
+            step="0.01"
+          />
+          <div id="ii-value" class="value-label">0</div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
