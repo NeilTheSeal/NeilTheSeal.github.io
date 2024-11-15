@@ -35,10 +35,10 @@ window.draw = function () {
 
 function drawPlot(data) {
   background(250);
-  const left = 100;
+  const left = 140;
   const right = canvasWidth - 150;
   const top = 70;
-  const bottom = canvasHeight - 50;
+  const bottom = canvasHeight - 80;
 
   const tMax = globals.tMax;
   const pMax = globals.pMax;
@@ -89,6 +89,25 @@ function drawAxes(left, right, top, bottom, tMax, pMax) {
 
     pop();
   }
+
+  push();
+  textSize(20);
+  noStroke();
+  fill(0);
+  textAlign(CENTER, CENTER);
+  translate(left - 90, (top + bottom) / 2);
+  rotate(-HALF_PI);
+  text("Number of people", 0, 0);
+  pop();
+
+  push();
+  textSize(20);
+  noStroke();
+  fill(0);
+  textAlign(CENTER, CENTER);
+  translate((left + right) / 2, bottom + 50);
+  text("Number of days", 0, 0);
+  pop();
 }
 
 function drawData(data, left, right, top, bottom, tMax, pMax) {
