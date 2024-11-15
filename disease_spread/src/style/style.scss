@@ -1,5 +1,12 @@
 @use "./slider.scss";
 
+#heading {
+  width: 100vw;
+  text-align: center;
+  margin-top: 14px;
+  font-size: 21px;
+}
+
 #controls {
   margin: 20px;
   margin-bottom: 15px;
