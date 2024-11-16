@@ -45,9 +45,14 @@ body {
   align-items: center;
 }
 
-.logo {
+.navbar-content nav {
+  display: grid;
+  grid-template-columns: max-content max-content;
+  align-items: center;
+}
+
+nav img {
   max-width: 60px;
-  border-radius: 50%;
 }
 
 .intro {
@@ -119,14 +124,15 @@ a:hover {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   justify-content: center;
-  justify-items: center;
-  gap: 10px;
+  justify-items: space-between;
+  gap: 20px;
 }
 
 .projects h3 {
   text-align: center;
-  margin-bottom: 10px;
-  font-size: 1.2rem;
+  margin: auto;
+  margin-bottom: 15px;
+  font-size: 1.1rem;
   max-width: 320px;
 }
 
@@ -137,7 +143,7 @@ a:hover {
   align-content: center;
   justify-items: center;
   justify-content: center;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .img-container img {
@@ -147,6 +153,7 @@ a:hover {
 }
 
 .projects p {
+  margin: auto;
   font-size: 0.9rem;
   max-width: 300px;
 }
@@ -157,9 +164,9 @@ a:hover {
   }
 }
 
-@media screen and (max-width: 649px) {
+@media screen and (max-width: 749px) {
   .projects {
-    grid-template-columns: 1fr;
+    grid-template-columns: max-content;
   }
 }
 
@@ -168,7 +175,7 @@ a:hover {
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
-  margin: 20px 0;
+  margin: 0px;
   cursor: pointer;
 }
 

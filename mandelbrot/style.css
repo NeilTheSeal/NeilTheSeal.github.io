@@ -1,14 +1,16 @@
 @font-face {
-  font-family: 'Open Sans';
+  font-family: "Open Sans";
   font-style: normal;
   font-weight: 400;
-  src: url('/resources/fonts/open-sans-v20-latin-regular.eot');
-  src: local(''),
-    url('/resources/fonts/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'),
-    url('/resources/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
-    url('/resources/fonts/open-sans-v20-latin-regular.woff') format('woff'),
-    url('/resources/fonts/open-sans-v20-latin-regular.ttf') format('truetype'),
-    url('/resources/fonts/open-sans-v20-latin-regular.svg#OpenSans') format('svg');
+  src: url("/resources/fonts/open-sans-v20-latin-regular.eot");
+  src: local(""),
+    url("/resources/fonts/open-sans-v20-latin-regular.eot?#iefix")
+      format("embedded-opentype"),
+    url("/resources/fonts/open-sans-v20-latin-regular.woff2") format("woff2"),
+    url("/resources/fonts/open-sans-v20-latin-regular.woff") format("woff"),
+    url("/resources/fonts/open-sans-v20-latin-regular.ttf") format("truetype"),
+    url("/resources/fonts/open-sans-v20-latin-regular.svg#OpenSans")
+      format("svg");
 }
 
 :root {
@@ -116,7 +118,8 @@ h4 {
   transform: rotate(90deg);
 }
 
-.slider-label, .slider-value {
+.slider-label,
+.slider-value {
   display: inline;
   margin: 5px 5px 5px 8px;
 }
@@ -132,7 +135,6 @@ h4 {
   position: relative;
 }
 
-
 canvas {
   box-shadow: 0px 0px 2px 1px lightslategrey;
   position: relative;
@@ -143,7 +145,7 @@ canvas {
   content: "";
   height: 0px;
   width: 20px;
-  border: 1px solid black;
+  border: 1px solid white;
   border-left: none;
   border-right: none;
   border-bottom: none;
@@ -158,7 +160,7 @@ canvas {
   content: "";
   height: 20px;
   width: 0px;
-  border: 1px solid black;
+  border: 1px solid white;
   border-left: none;
   border-top: none;
   border-bottom: none;
@@ -173,7 +175,7 @@ canvas {
   min-height: 160px;
 }
 
-.vertical>.slider-label {
+.vertical > .slider-label {
   white-space: nowrap;
 }
 
@@ -204,7 +206,7 @@ canvas {
   margin-bottom: 1rem;
 }
 
-.buttons-wrapper>.btn {
+.buttons-wrapper > .btn {
   width: 7rem !important;
   /* border: 1px solid black; */
   border-radius: 8px;
@@ -212,7 +214,9 @@ canvas {
   height: min-content;
 }
 
-#demo-button, #demo-button-2, #about-button {
+#demo-button,
+#demo-button-2,
+#about-button {
   width: max-content;
 }
 
@@ -222,10 +226,11 @@ canvas {
 }
 
 #reset-button:hover {
-  background-color: rgb(235, 106, 59);;
+  background-color: rgb(235, 106, 59);
 }
 
-#demo-button, #demo-button-2 {
+#demo-button,
+#demo-button-2 {
   display: grid;
   grid-template-columns: max-content max-content;
 }
@@ -259,11 +264,11 @@ canvas {
   border-bottom: none;
 }
 
-#x-axis-label-div>.label {
+#x-axis-label-div > .label {
   transform: translateY(2ch);
 }
 
-#y-axis-label-div>.label {
+#y-axis-label-div > .label {
   transform: translateY(-3.5ch);
 }
 
