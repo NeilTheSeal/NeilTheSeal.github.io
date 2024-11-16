@@ -1,0 +1,203 @@
+@font-face {
+font-family: 'Open Sans';
+font-style: normal;
+font-weight: 400;
+src: url('/resources/fonts/open-sans-v20-latin-regular.eot'); /* IE9 Compat Modes */
+src: local(''),
+    url('/resources/fonts/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'), /* IE6-IE8 */
+    url('/resources/fonts/open-sans-v20-latin-regular.woff2') format('woff2'), /* Super Modern Browsers */
+    url('/resources/fonts/open-sans-v20-latin-regular.woff') format('woff'), /* Modern Browsers */
+    url('/resources/fonts/open-sans-v20-latin-regular.ttf') format('truetype'), /* Safari, Android, iOS */
+    url('/resources/fonts/open-sans-v20-latin-regular.svg#OpenSans') format('svg'); /* Legacy iOS */
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    background-color: darkslategrey;
+}
+
+.top-nav {
+    width: 100vw;
+    height: 60px;
+    background-color: rgb(144, 144, 144);
+    padding: 10px;
+    display: grid;
+    grid-template-columns: max-content max-content max-content;
+    gap: 10px;
+    align-content: center;
+    align-items: center;
+    border: 1px solid black;
+}
+
+.top-nav>a, #instructions-modal-button {
+    padding: 8px 12px;
+    background-color: rgb(215, 215, 215);
+    border-radius: 3px;
+    border: 1px solid darkslategray;
+    text-decoration: none;
+    color: rgb(0, 85, 169);
+    cursor: pointer;
+}
+
+.top-nav>a:hover, #instructions-modal-button:hover {
+    background-color: rgb(181, 181, 181);
+}
+
+#page-title {
+    font-size: 2rem;
+    text-align: center;
+    color: cyan;
+    font-weight: 600;
+    pointer-events: none;
+    position: absolute;
+    left: max(400px, 50vw);
+    top: 5px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+}
+
+.start-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    height: 60px;
+    width: 100vw;
+    align-content: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.start-buttons>div {
+    min-width: 100px;
+    box-shadow: 0px 0px 2px 2px rgba(255, 255, 255, 0.317);
+    font-size: 1.125rem;
+}
+
+.main-body {
+    width: 100vw;
+    max-width: 1000px;
+    margin: auto;
+    height: calc(100vh - 120px);
+    display: grid;
+    grid-template-columns: repeat(2, minmax(200px, 50%));
+    /* grid-template-rows: repeat(2, 1fr 1fr); */
+    /* grid-template-rows: calc(50vh - 80px) calc(50vh - 80px); */
+    grid-template-rows: max-content max-content;
+    justify-items: center;
+}
+
+.main-body>.container {
+    margin: 10px;
+    width: calc(100% - 20px);
+    max-width: 450px;
+    max-height: 330px;
+    /* height: calc(max(230px, calc(50vh - 100px))); */
+    background-color: rgb(239, 239, 239);
+    box-shadow: 0px 0px 3px 3px rgba(255, 255, 255, 0.25);
+}
+
+.container.video-option {
+    display: grid;
+    grid-template-columns: 100%;
+    /* grid-template-rows: max-content minmax(200px, 1fr); */
+    justify-content: center;
+    justify-items: center;
+    /* height: max-content; */
+    position: relative;
+    z-index: 0;
+}
+
+.click-option {
+    margin: 10px;
+    padding: 8px 30px;
+}
+
+.video-option video {
+    max-width: 100%;
+    max-height: calc(50vh - 180px);
+    z-index: 1;
+}
+
+.video-container {
+    max-height: calc(100% - 30px);
+    height: max-content;
+}
+
+#instructions-modal {
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
+    opacity: 0;
+    background-color: rgba(0, 0, 0, 0.75);
+}
+
+.modal-body {
+    width: calc(max(95vw, 500px));
+    height: max-content;
+    margin: 10px auto;
+    background-color: white;
+}
+
+.modal-head {
+    display: grid;
+    grid-template-columns: 1fr 50px;
+    width: 100%;
+    height: 30px;
+    justify-content: center;
+    justify-items: center;
+    font-size: 1.25rem;
+}
+
+#exit-modal {
+    cursor: pointer;
+    font-size: 2rem;
+    line-height: 1.5rem;
+}
+
+.modal-contents {
+    padding: 10px;
+    height: max-content;
+    width: 100%;
+}
+
+.modal-contents>.instruction-video {
+    width: 100%;
+    max-width: 550px;
+    max-height: 320px;
+    margin: auto;
+}
+
+.instruction-video>iframe {
+    width: 100%;
+}
+
+#instructions-modal-button {
+    background-color: rgb(230, 191, 173);
+    color: darkblue;
+    box-shadow: 0px 0px 2px black;
+}
+
+.loading-text {
+    position: absolute;
+    top: 100px;
+    z-index: -1;
+}
+
+@media screen and (max-height: 815px) {
+    .start-buttons {
+        height: 50px;
+    }
+    .click-option {
+        font-size: 0.8rem;
+        padding: 8px 20px;
+        margin: 5px;
+    }
+    .video-option video {
+        max-height: calc(50vh - 130px) !important;
+    }
+    .main-body>.container {
+        margin: 5px;
+    }
+}

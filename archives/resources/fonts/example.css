@@ -1,0 +1,12 @@
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  src: url('/resources/fonts/open-sans-v20-latin-regular.eot');
+  src: local(''),
+    url('/resources/fonts/open-sans-v20-latin-regular.eot?#iefix') format('embedded-opentype'),
+    url('/resources/fonts/open-sans-v20-latin-regular.woff2') format('woff2'),
+    url('/resources/fonts/open-sans-v20-latin-regular.woff') format('woff'),
+    url('/resources/fonts/open-sans-v20-latin-regular.ttf') format('truetype'),
+    url('/resources/fonts/open-sans-v20-latin-regular.svg#OpenSans') format('svg');
+}

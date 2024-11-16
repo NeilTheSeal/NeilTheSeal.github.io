@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Best DPS Calculator</title>
+  <meta name="description" content="A damage-per-second calculator for Old School RuneScape made by Neil Hendren.">
+  <meta name=”robots” content="index, follow">
+  <meta name=keywords content="Neil Hendren, Github Pages, Projects, Side Projects, Github.io, Interactive, Web Applications, DPS Calculator, DPS, damage per-second, damage per-second calculator, Old School Runescape, Runescape, OSRS" >
+  <meta name=author content="Neil Hendren">
+  <meta name=application-name content="Damage Per-Second (DPS) Calculator for Old School RuneScape">
+  <link href="bootstrap-reboot.css" rel="stylesheet" />
+  <link href="style.css" rel="stylesheet" />
+  <script src="./resources/equipment.min.js"></script>
+  <script src="./resources/monsters.min.js"></script>
+</head>
+
+<body>
+
+  <nav>
+    <div class="nav-button" href="/"><a href="/">&longleftarrow; Back</a></div>
+    <div class="page-title">Old School Runescape DPS Calculator (in progress)</div>
+  </nav>
+
+  <div class="step one">
+
+    <div class="step-label">1</div>
+
+    <div class="input display-name">
+      <div class="display-name-label">Display name:</div>
+      <input id="display-name" type="text" />
+      <div id="fetch-stats">Fetch Stats</div>
+    </div>
+
+    <div class="or">or enter stats manually:</div>
+
+    <div id="combat-levels" class="input group">
+      <div class="input-label">attack</div><input id="attack-level" type="number" value="1" />
+      <div class="input-label">strength</div><input id="strength-level" type="number" value="1" />
+      <div class="input-label">defense</div><input id="defense-level" type="number" value="1" />
+      <div class="input-label">magic</div><input id="magic-level" type="number" value="1" />
+      <div class="input-label">ranged</div><input id="ranged-level" type="number" value="1" />
+      <div class="input-label">hitpoints</div><input id="hitpoints-level" type="number" value="10" />
+      <div class="input-label">prayer</div><input id="prayer-level" type="number" value="1" />
+    </div>
+
+  </div>
+
+  <div id="attack-style" class="step two">
+    <div class="step-label">2</div>
+
+    <div class="span">Select an attack style</div>
+
+    <div id="combat-styles">
+      <div class="melee-icon" value="melee">
+        <img src="./resources/strength.png" class="combat-style-icon selected" />
+      </div>
+      <div class="ranged-icon" value="ranged">
+        <img src="./resources/ranged.png" class="combat-style-icon" />
+      </div>
+      <div class="magic-icon" value="magic">
+        <img src="./resources/magic.png" class="combat-style-icon" />
+      </div>
+    </div>
+
+  </div>
+
+  <div id="gear-selection" class="step three">
+    <div class="step-label">3</div>
+    <div class="gear title">
+      Select gear:
+    </div>
+    <div id="gear-background">
+      <img src="./resources/slots.png" />
+      <div id="gear-container">
+
+        <div class="gear-selection" id="select-helm-container">
+          <div class="gear-label list-hidden" id="select-helm-datalist-container">
+            <div>Select helm:</div>
+            <input class="input-select" list="select-helm" id="select-helm-input" name="helm" />
+            <datalist id="select-helm"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="helm-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-cape-container">
+
+          <div class="gear-label list-hidden" id="select-cape-datalist-container">
+            <div>Select cape:</div>
+            <input class="input-select" list="select-cape" id="select-cape-input" name="cape" />
+            <datalist id="select-cape"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="cape-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-necklace-container">
+
+          <div class="gear-label list-hidden" id="select-necklace-datalist-container">
+            <div>Select necklace:</div>
+            <input class="input-select" list="select-necklace" id="select-necklace-input" name="necklace" />
+            <datalist id="select-necklace"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="necklace-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-ammunition-container">
+
+          <div class="gear-label list-hidden" id="select-ammunition-datalist-container">
+            <div>Select ammunition:</div>
+            <input class="input-select" list="select-ammunition" id="select-ammunition-input" name="ammunition" />
+            <datalist id="select-ammunition"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="ammunition-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-weapon-container">
+
+          <div class="gear-label list-hidden" id="select-weapon-datalist-container">
+            <div>Select weapon:</div>
+            <input class="input-select" list="select-weapon" id="select-weapon-input" name="weapon" />
+            <datalist id="select-weapon"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="weapon-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-body-container">
+
+          <div class="gear-label list-hidden" id="select-body-datalist-container">
+            <div>Select body:</div>
+            <input class="input-select" list="select-body" id="select-body-input" name="body" />
+            <datalist id="select-body"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="body-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-shield-container">
+
+          <div class="gear-label list-hidden" id="select-shield-datalist-container">
+            <div>Select shield:</div>
+            <input class="input-select" list="select-shield" id="select-shield-input" name="shield" />
+            <datalist id="select-shield"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="shield-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-legs-container">
+
+          <div class="gear-label list-hidden" id="select-legs-datalist-container">
+            <div>Select legs:</div>
+            <input class="input-select" list="select-legs" id="select-legs-input" name="legs" />
+            <datalist id="select-legs"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="legs-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-hands-container">
+
+          <div class="gear-label list-hidden" id="select-hands-datalist-container">
+            <div>Select hands:</div>
+            <input class="input-select" list="select-hands" id="select-hands-input" name="hands" />
+            <datalist id="select-hands"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="hands-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-feet-container">
+
+          <div class="gear-label list-hidden" id="select-feet-datalist-container">
+            <div>Select feet:</div>
+            <input class="input-select" list="select-feet" id="select-feet-input" name="feet" />
+            <datalist id="select-feet"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="feet-thumbnail" src="none" />
+          </div>
+
+        </div>
+
+        <div class="gear-selection" id="select-ring-container">
+
+          <div class="gear-label list-hidden" id="select-ring-datalist-container">
+            <div>Select ring:</div>
+            <input class="input-select" list="select-ring" id="select-ring-input" name="ring" />
+            <datalist id="select-ring"></datalist>
+          </div>
+
+          <div class="gear-image-container">
+            <img id="ring-thumbnail" src="none" />
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div id="stats-background-container">
+      <div id="stats-background">
+        <div class="section-label">Attack bonuses</div>
+
+        <div id="slash-atk-bonus-container" class="bonus-container">
+          <div id="slash-atk-label" class="bonus-label">slash atk:</div>
+          <div id="slash-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="stab-atk-bonus-container" class="bonus-container">
+          <div id="stab-atk-label" class="bonus-label">stab atk:</div>
+          <div id="stab-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="crush-atk-bonus-container" class="bonus-container">
+          <div id="crush-atk-label" class="bonus-label">crush atk:</div>
+          <div id="crush-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-atk-bonus-container" class="bonus-container">
+          <div id="ranged-atk-label" class="bonus-label">ranged atk:</div>
+          <div id="ranged-atk-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-atk-bonus-container" class="bonus-container">
+          <div id="magic-atk-label" class="bonus-label">magic atk:</div>
+          <div id="magic-atk-value" class="bonus-value">+0</div>
+        </div>
+
+        <div class="section-label">Defense bonuses</div>
+
+        <div id="slash-def-bonus-container" class="bonus-container">
+          <div id="slash-def-label" class="bonus-label">slash def:</div>
+          <div id="slash-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="stab-def-bonus-container" class="bonus-container">
+          <div id="stab-def-label" class="bonus-label">stab def:</div>
+          <div id="stab-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="crush-def-bonus-container" class="bonus-container">
+          <div id="crush-def-label" class="bonus-label">crush def:</div>
+          <div id="crush-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-def-bonus-container" class="bonus-container">
+          <div id="ranged-def-label" class="bonus-label">ranged def:</div>
+          <div id="ranged-def-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-def-bonus-container" class="bonus-container">
+          <div id="magic-def-label" class="bonus-label">magic def:</div>
+          <div id="magic-def-value" class="bonus-value">+0</div>
+        </div>
+
+        <div class="section-label">Strength bonuses</div>
+
+        <div id="melee-str-bonus-container" class="bonus-container">
+          <div id="melee-str-label" class="bonus-label">melee str:</div>
+          <div id="melee-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="ranged-str-bonus-container" class="bonus-container">
+          <div id="ranged-str-label" class="bonus-label">ranged str:</div>
+          <div id="ranged-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="magic-str-bonus-container" class="bonus-container">
+          <div id="magic-str-label" class="bonus-label">magic str:</div>
+          <div id="magic-str-value" class="bonus-value">+0</div>
+        </div>
+        <div id="prayer-bonus-container" class="bonus-container">
+          <div id="prayer-label" class="bonus-label">prayer:</div>
+          <div id="prayer-value" class="bonus-value">+0</div>
+        </div>
+      </div>
+    </div>
+
+    <div id="special-effects-container">
+      <div id="special-effects-title">Damage modifiers:</div>
+      <div id="special-effects-content">
+        <div id="special-effects-null">
+          Your setup does not have any set effects or damage modifiers.
+        </div>
+        <ul id="special-effects-list">
+
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div id="select-stance-container" class="step four">
+
+    <div class="step-label">4</div>
+    <div class="stance title">
+      Attack options
+    </div>
+    
+    <div class="select select-group melee select-style">
+      Select melee stance:
+      <select id="select-attack-style">
+        <option value="1" default>Punch</option>
+        <option value="2">Kick</option>
+        <option value="3">Block</option>
+      </select>
+    </div>
+
+    <div class="select ranged select-style select-hidden">
+      Select ranged stance:
+      <select id="select-ranged-attack-type" disabled>
+        <option value="1" default>(No ranged weapon selected)</option>
+      </select>
+    </div>
+
+    <div class="select magic select-style select-hidden">
+      <div id="magic-select-label">Select spell (or powered staff stance):</div>
+      <select id="select-magic-spell">
+        <option value="powered-staff-accurate" disabled>Powered staff (accurate)</option>
+        <option value="powered-staff-longrange" disabled>Powered staff (long-range)</option>
+        <option value="wind-strike">Wind strike</option>
+        <option value="water-strike">Water strike</option>
+        <option value="earth-strike">Earth strike</option>
+        <option value="fire-strike">Fire strike</option>
+        <option value="wind-bolt">Wind bolt</option>
+        <option value="water-bolt">Water bolt</option>
+        <option value="earth-bolt">Earth bolt</option>
+        <option value="fire-bolt">Fire bolt</option>
+        <option value="wind-blast">Wind blast</option>
+        <option value="water-blast">Water blast</option>
+        <option value="earth-blast">Earth blast</option>
+        <option value="fire-blast">Fire blast</option>
+        <option value="wind-wave">Wind wave</option>
+        <option value="water-wave">Water wave</option>
+        <option value="earth-wave">Earth wave</option>
+        <option value="fire-wave">Fire wave</option>
+        <option value="wind-surge">Wind surge</option>
+        <option value="water-surge">Water surge</option>
+        <option value="earth-surge">Earth surge</option>
+        <option value="fire-surge">Fire surge</option>
+        <option value="crumble-undead">Crumble undead</option>
+        <option value="iban-blast">Iban blast</option>
+        <option value="magic-dart">Magic dart</option>
+        <option value="saradomin-strike">Saradomin strike</option>
+        <option value="claws-of-guthix">Claws of Guthix</option>
+        <option value="flames-of-zamorak">Flames of Zamorak</option>
+        <option value="ghostly-grasp">Ghostly grasp</option>
+        <option value="skeletal-grasp">Skeletal grasp</option>
+        <option value="undead-grasp">Undead grasp</option>
+        <option value="inferior-demonbane">Inferior demonbane</option>
+        <option value="superior-demonbane">Superior demonbane</option>
+        <option value="dark-demonbane">Dark demonbane</option>
+        <option value="smoke-rush">Smoke rush</option>
+        <option value="shadow-rush">Shadow rush</option>
+        <option value="blood-rush">Blood rush</option>
+        <option value="ice-rush">Ice rush</option>
+        <option value="smoke-burst">Smoke burst</option>
+        <option value="shadow-burst">Shadow burst</option>
+        <option value="blood-burst">Blood burst</option>
+        <option value="ice-burst">Ice burst</option>
+        <option value="smoke-blitz">Smoke blitz</option>
+        <option value="shadow-blitz">Shadow blitz</option>
+        <option value="blood-blitz">Blood blitz</option>
+        <option value="ice-blitz">Ice blitz</option>
+        <option value="smoke-barrage">Smoke barrage</option>
+        <option value="shadow-barrage">Shadow barrage</option>
+        <option value="blood-barrage">Blood barrage</option>
+        <option value="ice-barrage">Ice barrage</option>
+      </select>
+    </div>
+
+    <div id="slayer-task-input-container">
+      <div id="slayer-task-input-label">Slayer task?</div>
+      <input id="slayer-task-input" type="checkbox" />
+    </div>
+      
+    <div id="setup-results">
+      <div id="max-hit-label" class="left">
+        Max hit:
+      </div>
+      <div id="max-hit-value" class="right">
+        1
+      </div>
+      <div id="attack-speed-label" class="left">
+        Attack speed:
+      </div>
+      <div id="attack-speed-value" class="right">
+        4
+      </div>
+    </div>
+  </div>
+
+  <div id="select-monster-container" class="step five">
+
+    <div class="step-label">5</div>
+    <div class="stance title">
+      Select opponent:
+    </div>
+
+    <div id="monster-selection-label">Choose opponent:</div>
+    <input list="monster-select-datalist" id="monster-select-input" name="monster-selection" placeholder="type monster name here" spellcheck="false" />
+    <datalist id="monster-select-datalist"></datalist>
+
+    <div id="opponent-combat-level-label" class="opponent-stat-label">Combat level:</div>
+    <div id="opponent-combat-level" class="opponent-stat">0</div>
+    <div id="opponent-hitpoints-level-label" class="opponent-stat-label">Hitpoints:</div>
+    <div id="opponent-hitpoints-level" class="opponent-stat">0</div>
+    <div id="opponent-defence-level-label" class="opponent-stat-label">Defence level:</div>
+    <div id="opponent-defence-level" class="opponent-stat">0</div>
+    <div id="opponent-magic-level-label" class="opponent-stat-label">Magic level:</div>
+    <div id="opponent-magic-level" class="opponent-stat">0</div>
+    <div id="stats-spacer"></div>
+    <div id="opponent-slash-defence-label" class="opponent-stat-label">Slash defence bonus:</div>
+    <div id="opponent-slash-defence" class="opponent-stat">+0</div>
+    <div id="opponent-stab-defence-label" class="opponent-stat-label">Stab defence bonus:</div>
+    <div id="opponent-stab-defence" class="opponent-stat">+0</div>
+    <div id="opponent-crush-defence-label" class="opponent-stat-label">Crush defence bonus:</div>
+    <div id="opponent-crush-defence" class="opponent-stat">+0</div>
+    <div id="opponent-ranged-defence-label" class="opponent-stat-label">Ranged defence bonus:</div>
+    <div id="opponent-ranged-defence" class="opponent-stat">+0</div>
+    <div id="opponent-magic-defence-label" class="opponent-stat-label">Magic defence bonus:</div>
+    <div id="opponent-magic-defence" class="opponent-stat">+0</div>
+  </div>
+  
+  <script async src="main.js"></script>
+  <script async src="fetch_stats.js"></script>
+</body>
+
+</html>
