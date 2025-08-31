@@ -22,7 +22,7 @@ window.g = {
   FOV: 2,
   FOVMin: 1e-9,
   FOVMax: 10,
-  max_iterations: 80,
+  max_iterations: 40,
   pixel_index: 0,
   is_panning: false,
   demo_x: -1.184993869372935,
@@ -67,7 +67,7 @@ function adjustZoom() {
   const FOVMaxLog = Math.log(window.g.FOVMax);
   const FOVMinLog = Math.log(window.g.FOVMin);
   const maxIterationFar = 40;
-  const maxIterationZoomed = 350;
+  const maxIterationZoomed = 400;
   let newIterations = map(
     newZoom,
     FOVMaxLog,
