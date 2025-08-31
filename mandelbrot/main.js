@@ -32,6 +32,14 @@ window.g = {
   in_demo_mode: false,
   palette: null,
   paletteSize: 1024,
+  // WASM integration state
+  wasm: {
+    ready: false,
+    mod: null,
+    render: null,
+    bufPtr: 0,
+    bufBytes: 0,
+  },
 };
 
 function setup() {
@@ -48,6 +56,8 @@ function setup() {
   pixelDensity(1);
   // Build color palette LUT once
   window.g.palette = buildPalette(window.g.paletteSize | 0);
+  // Try loading WASM module (non-blocking)
+  initWasm();
   adjustZoom();
   pan();
   noLoop();
@@ -66,8 +76,8 @@ function adjustZoom() {
   const newZoom = window.g.zoom - dZoom;
   const FOVMaxLog = Math.log(window.g.FOVMax);
   const FOVMinLog = Math.log(window.g.FOVMin);
-  const maxIterationFar = 40;
-  const maxIterationZoomed = 400;
+  const maxIterationFar = 80;
+  const maxIterationZoomed = 320;
   let newIterations = map(
     newZoom,
     FOVMaxLog,
@@ -317,51 +327,126 @@ function update() {
   const palette = window.g.palette;
   const palSize = window.g.paletteSize | 0;
 
-  let idx = 0;
-  for (let py = 0; py < H; py++) {
-    const cy = yMin + py * dy;
-
-    // Precompute terms used by the cardioid/bulb test that depend only on cy
-    const cy2 = cy * cy;
-
-    let cx = xMin;
-    for (let px = 0; px < W; px++, cx += dx) {
-      // Cardioid and period-2 bulb tests (massive speedup for interior points)
-      // If inside, we can skip iterations and mark as maxIter directly.
-      let iters = 0;
-      const xMinusQuarter = cx - 0.25;
-      const q = xMinusQuarter * xMinusQuarter + cy2;
-      if (
-        q * (q + xMinusQuarter) <= 0.25 * cy2 ||
-        (cx + 1) * (cx + 1) + cy2 <= 0.0625
-      ) {
-        iters = maxIter;
-      } else {
-        // Standard escape-time iteration
-        let x = 0.0,
-          y = 0.0;
-        let xx = 0.0,
-          yy = 0.0,
-          xy = 0.0;
-        while (iters < maxIter && xx + yy <= 4.0) {
-          xy = x * y;
-          xx = x * x;
-          yy = y * y;
-          x = xx - yy + cx;
-          y = xy + xy + cy;
-          iters++;
+  // If WASM is ready, use it to fill the pixel buffer (RGBA)
+  if (window.g.wasm && window.g.wasm.ready && window.g.wasm.render) {
+    const needed = (W * H * 4) | 0;
+    if (needed !== window.g.wasm.bufBytes) {
+      // (Re)allocate buffer in WASM memory
+      if (window.g.wasm.bufPtr) {
+        try {
+          window.g.wasm.mod._free(window.g.wasm.bufPtr);
+        } catch (e) {
+          console.error(e);
         }
       }
-
-      // Color mapping via LUT: color = 1 - (iters / maxIter), then index palette
-      let color = 1 - iters / maxIter;
-      if (color > 0.95) color = 1;
-      const pi = (color * (palSize - 1)) | 0;
-      const p4 = pi << 2;
-      data[idx++] = palette[p4];
-      data[idx++] = palette[p4 + 1];
-      data[idx++] = palette[p4 + 2];
-      data[idx++] = 255;
+      const ptr = window.g.wasm.mod._malloc(needed);
+      window.g.wasm.bufPtr = ptr;
+      window.g.wasm.bufBytes = needed;
     }
+
+    // Call WASM render(out, W, H, xMin, xMax, yMin, yMax, maxIter)
+    window.g.wasm.render(
+      window.g.wasm.bufPtr,
+      W,
+      H,
+      xMin,
+      xMax,
+      yMin,
+      yMax,
+      maxIter
+    );
+    // Copy from HEAPU8 to pixels (guard in case HEAP views aren't exposed)
+    const mod = window.g.wasm.mod;
+
+    // Cache a HEAPU8 view; refresh if memory grows
+    let heapU8 = window.g.wasm.heapU8 || null;
+
+    if (mod.HEAPU8) {
+      if (!heapU8 || heapU8.buffer !== mod.HEAPU8.buffer) {
+        heapU8 = mod.HEAPU8;
+        window.g.wasm.heapU8 = heapU8;
+      }
+    } else {
+      const buf =
+        (mod.wasmMemory && mod.wasmMemory.buffer) ||
+        (mod.HEAP8 && mod.HEAP8.buffer) ||
+        null;
+      if (buf && (!heapU8 || heapU8.buffer !== buf)) {
+        heapU8 = new Uint8Array(buf);
+        window.g.wasm.heapU8 = heapU8;
+      }
+    }
+
+    if (heapU8 && heapU8.subarray) {
+      const view = heapU8.subarray(
+        window.g.wasm.bufPtr,
+        window.g.wasm.bufPtr + needed
+      );
+      data.set(view);
+      return; // done
+    }
+    // If we couldn't access the heap, fall back to JS path below this block
   }
+}
+
+// Lazy-load the modularized Emscripten WASM module if present
+function initWasm() {
+  // Expect build outputs named mandelbrot_wasm.js/wasm in the same folder
+  const jsUrl = new URL("mandelbrot_wasm.js", window.location.href).toString();
+  // Create a script tag and attach onload
+  const s = document.createElement("script");
+  s.async = true;
+  s.src = jsUrl;
+  s.onload = () => {
+    // The modularized factory should be available as Module or MandelModule; try both
+    const factory = window.MandelModule || window.Module || null;
+    if (!factory) return;
+    try {
+      factory()
+        .then((mod) => {
+          if (!mod.HEAPU8 && mod.wasmMemory)
+            mod.HEAPU8 = new Uint8Array(mod.wasmMemory.buffer);
+
+          window.g.wasm.mod = mod;
+          // Expose the C function: render(uint8_t*, int, int, double, double, double, double, int)
+          const render = mod.cwrap("render", null, [
+            "number",
+            "number",
+            "number",
+            "number",
+            "number",
+            "number",
+            "number",
+            "number",
+          ]);
+          window.g.wasm.render = render;
+          // Mark ready only when memory views are exposed; otherwise wait for runtime init
+          const hasHeap = !!(
+            mod.HEAPU8 ||
+            (mod.wasmMemory && mod.wasmMemory.buffer) ||
+            (mod.HEAP8 && mod.HEAP8.buffer)
+          );
+          if (hasHeap) {
+            window.g.wasm.ready = true;
+            redraw();
+          } else {
+            const prev = mod.onRuntimeInitialized;
+            mod.onRuntimeInitialized = function () {
+              try {
+                if (typeof prev === "function") prev();
+              } catch (e) {}
+              window.g.wasm.ready = true;
+              redraw();
+            };
+          }
+        })
+        .catch(() => {});
+    } catch (e) {
+      // ignore; stay on JS path
+    }
+  };
+  s.onerror = () => {
+    // If file not present, silently ignore
+  };
+  document.head.appendChild(s);
 }
