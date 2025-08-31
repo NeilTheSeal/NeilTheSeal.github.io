@@ -21,8 +21,8 @@ window.g = {
   ],
   FOV: 2,
   FOVMin: 1e-9,
-  FOVMax: 4,
-  max_iterations: 40,
+  FOVMax: 10,
+  max_iterations: 80,
   pixel_index: 0,
   is_panning: false,
   demo_x: -1.184993869372935,
@@ -30,6 +30,8 @@ window.g = {
   demo_x_2: -0.7476360108797688,
   demo_y_2: -0.18476093770127774,
   in_demo_mode: false,
+  palette: null,
+  paletteSize: 1024,
 };
 
 function setup() {
@@ -44,13 +46,14 @@ function setup() {
   window.g.zoomSlider.value = `${sliderValue}`;
   background(255);
   pixelDensity(1);
+  // Build color palette LUT once
+  window.g.palette = buildPalette(window.g.paletteSize | 0);
   adjustZoom();
   pan();
   noLoop();
 }
 
 function draw() {
-  window.g.pixel_index = 0;
   loadPixels();
   update();
   updatePixels();
@@ -91,7 +94,7 @@ function adjustZoom() {
   redraw();
   updateLabels();
   if (window.g.is_panning) {
-    window.setTimeout(adjustZoom, 100);
+    window.setTimeout(adjustZoom, 16.66);
   }
 }
 
@@ -119,7 +122,7 @@ function pan() {
   redraw();
   updateLabels();
   if (window.g.is_panning) {
-    window.setTimeout(pan, 100);
+    window.setTimeout(pan, 16.66);
   }
 }
 
@@ -280,48 +283,85 @@ function reset() {
   redraw();
 }
 
-function update() {
-  for (let j = 0; j < width; j++) {
-    for (let i = 0; i < height; i++) {
-      let n = window.g.max_iterations;
-      const cx =
-        window.g.range[0][0] +
-        (i / width) * (window.g.range[0][1] - window.g.range[0][0]);
-      const cy =
-        window.g.range[1][0] +
-        (j / height) * (window.g.range[1][1] - window.g.range[1][0]);
-      let x = 0;
-      let y = 0;
-      let xx = 0;
-      let yy = 0;
-      let xy = 0;
+// Build a palette lookup table matching the existing polynomial gradient
+function buildPalette(size) {
+  const N = size | 0;
+  const arr = new Uint8ClampedArray(N * 4);
+  let o = 0;
+  for (let i = 0; i < N; i++) {
+    let color = i / (N - 1);
+    if (color > 0.95) color = 1;
+    const t = 1 - color;
+    const c2 = color * color;
+    const c3 = c2 * color;
+    arr[o++] = (color * 255) | 0; // R
+    arr[o++] = (9 * t * c3 * 255) | 0; // G
+    arr[o++] = (15 * t * t * c2 * 255) | 0; // B
+    arr[o++] = 255; // A
+  }
+  return arr;
+}
 
-      while (n-- && xx + yy <= 4) {
-        xy = x * y;
-        xx = x * x;
-        yy = y * y;
-        x = xx - yy + cx;
-        y = xy + xy + cy;
-        if (n <= 0) {
-          break;
+function update() {
+  // Local aliases to avoid repeated property lookups inside hot loops
+  const W = width | 0;
+  const H = height | 0;
+  const maxIter = window.g.max_iterations | 0;
+  const xMin = window.g.range[0][0];
+  const xMax = window.g.range[0][1];
+  const yMin = window.g.range[1][0];
+  const yMax = window.g.range[1][1];
+  const dx = (xMax - xMin) / W;
+  const dy = (yMax - yMin) / H;
+  const data = pixels; // Uint8ClampedArray from p5.js
+  const palette = window.g.palette;
+  const palSize = window.g.paletteSize | 0;
+
+  let idx = 0;
+  for (let py = 0; py < H; py++) {
+    const cy = yMin + py * dy;
+
+    // Precompute terms used by the cardioid/bulb test that depend only on cy
+    const cy2 = cy * cy;
+
+    let cx = xMin;
+    for (let px = 0; px < W; px++, cx += dx) {
+      // Cardioid and period-2 bulb tests (massive speedup for interior points)
+      // If inside, we can skip iterations and mark as maxIter directly.
+      let iters = 0;
+      const xMinusQuarter = cx - 0.25;
+      const q = xMinusQuarter * xMinusQuarter + cy2;
+      if (
+        q * (q + xMinusQuarter) <= 0.25 * cy2 ||
+        (cx + 1) * (cx + 1) + cy2 <= 0.0625
+      ) {
+        iters = maxIter;
+      } else {
+        // Standard escape-time iteration
+        let x = 0.0,
+          y = 0.0;
+        let xx = 0.0,
+          yy = 0.0,
+          xy = 0.0;
+        while (iters < maxIter && xx + yy <= 4.0) {
+          xy = x * y;
+          xx = x * x;
+          yy = y * y;
+          x = xx - yy + cx;
+          y = xy + xy + cy;
+          iters++;
         }
       }
 
-      let color = n / g.max_iterations;
-      if (color > 0.95) {
-        color = 1;
-      }
-      pixels[window.g.pixel_index] = (color * 255) | 0;
-      pixels[window.g.pixel_index + 1] =
-        Math.floor(9 * (1 - color) * color * color * color * 255) | 0;
-      pixels[window.g.pixel_index + 2] =
-        Math.floor(15 * (1 - color) * (1 - color) * color * color * 255) | 0;
-      pixels[window.g.pixel_index + 3] =
-        Math.floor(
-          8.5 * (1 - color) * (1 - color) * (1 - color) * color * 255
-        ) | 255;
-
-      window.g.pixel_index += 4;
+      // Color mapping via LUT: color = 1 - (iters / maxIter), then index palette
+      let color = 1 - iters / maxIter;
+      if (color > 0.95) color = 1;
+      const pi = (color * (palSize - 1)) | 0;
+      const p4 = pi << 2;
+      data[idx++] = palette[p4];
+      data[idx++] = palette[p4 + 1];
+      data[idx++] = palette[p4 + 2];
+      data[idx++] = 255;
     }
   }
 }
