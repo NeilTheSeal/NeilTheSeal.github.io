@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Zulrah helper</title>
+  <meta name="description" content="Learn Zulrah more effectively with Neil Hendren's online Zulrah helper tool. All credit goes to EVScape for the creation of the videos used in this helper.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name=”robots” content="index, follow">
+  <meta name=keywords content="Neil Hendren, Github Pages, Projects, Side Projects, Github.io, Zulrah, Online Zulrah, Helper, Assistant, Tool, Old School Runescape, Interactive, Web Applications" >
+  <meta name=author content="Neil Hendren">
+  <meta name=application-name content="Neil Hendren's Zulrah Helper for Old School RuneScape">
+  <link rel="stylesheet" href="./style/bootstrap-reboot.css">
+  <link rel="stylesheet" href="./style/bootstrap.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+
+</head>
+
+<body>
+  <div class="top-nav">
+    <a id="back-button" href="../">&leftarrow;&nbsp;home page</a>
+    <div id="instructions-modal-button">Instructions</div>
+    <div id="page-title">Zulrah helper</div>
+  </div>
+  <div class="start-buttons">
+    <div id="start-button" class="btn btn-sm btn-success">start</div>
+    <div id="reset-button" class="btn btn-sm btn-danger">reset</div>
+  </div>
+  <div class="main-body">
+    <div class="container video-option"><div class="loading-text">loading . . .</div></div>
+    <div class="container video-option"><div class="loading-text">loading . . .</div></div>
+    <div class="container video-option"><div class="loading-text">loading . . .</div></div>
+    <div class="container video-option"><div class="loading-text">loading . . .</div></div>
+  </div>
+
+  <div id="instructions-modal">
+    <div class="modal-body">
+      <div class="modal-head">
+        <div>Instructions</div>
+        <div id="exit-modal">&times;</div>
+      </div>
+      <div class="modal-contents">
+        <p>
+          Before proceeding, watch <a href="https://www.youtube.com/watch?v=DS60Ehfw9yQ" target="_blank">EVScape's Zulrah Guide for First Timers</a>, then return here.
+        </p>
+        <p>
+          When I was first learning Zulrah, I struggled a lot with learning all of the rotations. EVScape's guide is great, but unfortunately there's a 3/4 chance that you will get the wrong rotation and have to teleport out. It is also difficult to get his guide to sync up perfectly with your kill, so he might be giving you instructions a couple seconds too early or too late. That is why I created this application. This web application allows you to listen to EVScape's instructional video up during your Zulrah kill very easily, regardless of which rotation it is, so that you can receive live instructions. Basically, you click "Start" and it begins a count-down. When the count-down gets to "GO", you begin your Zulrah kill.  Once you know which rotation Zulrah is, you click "Rotation #X" and it will sync up EVScape's video with your current kill, at the exactly correct time. You will then be able to listen to EVScape instructing you where to run, what to pray, and which attack style to use. Here are two guides on how to use this application (best viewed in full-screen to see details).
+        </p>
+        <div class="instruction-video">
+          <iframe width="550" height="320" src="https://www.youtube.com/embed/E3vMWIeae-I" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+        <p style="margin-top:20px;">
+          view this second video if you need further instructions (also best viewed full-screen):
+        </p>
+        <div class="instruction-video">
+          <iframe width="550" height="320" src="https://www.youtube.com/embed/7_eL8lEbT_w" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./js/main.js"></script>
+</body>
+
+</html>
